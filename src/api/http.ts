@@ -3,17 +3,11 @@ import axios, {
   type AxiosInstance,
   type InternalAxiosRequestConfig,
 } from 'axios'
+import { API_BASE_URL } from '@/config/api'
 import { useAuthStore } from '@/stores/auth.store'
 
-const baseURL = import.meta.env.VITE_API_BASE_URL
-if (!baseURL) {
-  throw new Error(
-    'VITE_API_BASE_URL is not defined. Add it to your .env file.',
-  )
-}
-
 export const http: AxiosInstance = axios.create({
-  baseURL,
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -35,7 +29,7 @@ async function refreshAccessToken(): Promise<string | null> {
 
   try {
     const { data } = await axios.post(
-      `${baseURL}/auth/refresh`,
+      `${API_BASE_URL}/auth/refresh`,
       { refresh_token: refreshToken },
       { headers: { 'Content-Type': 'application/json' } },
     )
