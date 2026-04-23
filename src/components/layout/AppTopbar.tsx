@@ -1,7 +1,16 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Logo from '@/components/ui/Logo'
 import { useAuthStore } from '@/stores/auth.store'
+
+const navItems = [
+  { to: '/app/dashboard', label: 'Dashboard' },
+  { to: '/app/activity', label: 'Activity' },
+  { to: '/app/screenshots', label: 'Screenshots' },
+  { to: '/app/team', label: 'Team' },
+  { to: '/app/settings', label: 'Settings' },
+  { to: '/app/download', label: 'Download' },
+]
 
 export default function AppTopbar() {
   const user = useAuthStore((s) => s.user)
@@ -25,12 +34,30 @@ export default function AppTopbar() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Link to="/app/download" className="flex items-center">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-5 sm:px-8">
+        <Link to="/app/dashboard" className="flex items-center">
           <Logo />
         </Link>
 
-        <div className="relative">
+        <nav className="hidden items-center gap-1 md:flex">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                  isActive
+                    ? 'bg-brand-50 text-brand-800'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="relative ml-auto">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -68,6 +95,24 @@ export default function AppTopbar() {
                   {user?.full_name}
                 </p>
                 <p className="truncate text-xs text-slate-500">{user?.email}</p>
+                {user?.role && (
+                  <p className="mt-1 inline-block rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand-800">
+                    {user.role}
+                  </p>
+                )}
+              </div>
+              <div className="md:hidden">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="border-t border-slate-100" />
               </div>
               <button
                 type="button"

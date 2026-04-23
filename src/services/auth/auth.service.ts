@@ -3,9 +3,11 @@ import { authApi } from './auth.api'
 import type {
   ApiErrorBody,
   ForgotPasswordPayload,
+  InvitePayload,
   LoginPayload,
   ResetPasswordPayload,
   SignupPayload,
+  VerifyEmailPayload,
 } from './auth.type'
 
 export function extractApiError(
@@ -32,4 +34,6 @@ export const authService = {
     authApi.forgotPassword(payload),
   resetPassword: (payload: ResetPasswordPayload) =>
     authApi.resetPassword(payload),
+  verifyEmail: (payload: VerifyEmailPayload) => authApi.verifyEmail(payload),
+  invite: (payload: InvitePayload) => authApi.invite(payload),
 }

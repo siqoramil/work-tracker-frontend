@@ -49,7 +49,7 @@ export default function SignUpPage() {
         email: email.trim(),
         password,
       })
-      navigate('/app/download', { replace: true })
+      navigate('/app/activity', { replace: true })
     } catch (err) {
       setError(extractApiError(err, 'Unable to create account'))
     } finally {

@@ -5,7 +5,7 @@ export default function PublicOnlyRoute() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
 
   if (isAuthenticated) {
-    return <Navigate to="/app/download" replace />
+    return <Navigate to="/app/activity" replace />
   }
 
   return <Outlet />

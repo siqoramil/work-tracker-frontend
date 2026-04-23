@@ -25,7 +25,7 @@ export default function SignInPage() {
     try {
       await signIn({ email: email.trim(), password })
       const state = location.state as LocationState
-      const redirectTo = state?.from?.pathname ?? '/app/download'
+      const redirectTo = state?.from?.pathname ?? '/app/activity'
       navigate(redirectTo, { replace: true })
     } catch (err) {
       setError(extractApiError(err, 'Unable to sign in'))

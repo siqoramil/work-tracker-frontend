@@ -2,11 +2,10 @@ export type UserResponse = {
   id: string
   email: string
   full_name: string
-  company_name?: string | null
-  role?: string | null
-  is_email_verified?: boolean
-  created_at?: string
-  updated_at?: string
+  is_active: boolean
+  role: string
+  company_id?: string | null
+  created_at: string
 }
 
 export type TokenResponse = {
@@ -40,7 +39,8 @@ export type ForgotPasswordResponse = {
 }
 
 export type ResetPasswordPayload = {
-  reset_token: string
+  email: string
+  code: string
   new_password: string
 }
 
