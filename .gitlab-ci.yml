@@ -1,5 +1,5 @@
 stages:
-  - test
+  - build
   - deploy
 
 variables:
@@ -12,8 +12,8 @@ cache:
     - node_modules/
     - .yarn/cache/
 
-test:
-  stage: test
+build:
+  stage: build
   image: $NODE_IMAGE
   tags:
     - vps
@@ -22,6 +22,10 @@ test:
   script:
     - yarn lint
     - yarn build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
   rules:
     - if: '$CI_COMMIT_BRANCH'
 
@@ -30,22 +34,17 @@ deploy:
   image: alpine:3.20
   tags:
     - vps
+  dependencies:
+    - build
   before_script:
-    - apk add --no-cache openssh-client git
+    - apk add --no-cache openssh-client rsync
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -T 10 -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
   script:
-    - >
-      ssh -o StrictHostKeyChecking=no "$DEPLOY_USER@$DEPLOY_HOST"
-      "cd '$FRONTEND_DEPLOY_PATH' &&
-      git fetch origin &&
-      git checkout '$DEPLOY_BRANCH' &&
-      git pull origin '$DEPLOY_BRANCH' &&
-      yarn install --frozen-lockfile &&
-      yarn build"
+    - rsync -avz --delete dist/ "$DEPLOY_USER@$DEPLOY_HOST:$FRONTEND_DEPLOY_PATH/"
   environment:
     name: production
   rules:
