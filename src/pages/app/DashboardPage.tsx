@@ -285,8 +285,9 @@ export default function DashboardPage() {
                           loading="lazy"
                           className="h-full w-full object-cover transition group-hover:scale-[1.02]"
                           onError={(e) => {
-                            ;(e.currentTarget as HTMLImageElement).style.display =
-                              'none'
+                            ;(
+                              e.currentTarget as HTMLImageElement
+                            ).style.display = 'none'
                           }}
                         />
                       </div>
