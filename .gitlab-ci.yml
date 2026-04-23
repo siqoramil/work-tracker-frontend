@@ -10,6 +10,7 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
+    - .yarn/cache/
 
 test:
   stage: test
@@ -17,10 +18,10 @@ test:
   tags:
     - vps
   before_script:
-    - npm ci
+    - yarn install --frozen-lockfile
   script:
-    - npm run lint
-    - npm run build
+    - yarn lint
+    - yarn build
   rules:
     - if: '$CI_COMMIT_BRANCH'
 
@@ -43,8 +44,8 @@ deploy:
       git fetch origin &&
       git checkout '$DEPLOY_BRANCH' &&
       git pull origin '$DEPLOY_BRANCH' &&
-      npm ci &&
-      npm run build"
+      yarn install --frozen-lockfile &&
+      yarn build"
   environment:
     name: production
   rules:
