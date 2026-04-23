@@ -23,9 +23,9 @@ const columns = [
 export default function MarketingFooter() {
   return (
     <footer className="border-t border-slate-200 bg-slate-50/50">
-      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-5">
-          <div className="lg:col-span-2">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
+        <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5">
+          <div className="sm:col-span-2 lg:col-span-2">
             <Logo />
             <p className="mt-4 max-w-sm text-sm text-slate-500">
               The time-tracking admin platform for teams that care about output

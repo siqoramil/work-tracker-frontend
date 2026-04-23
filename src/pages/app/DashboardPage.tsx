@@ -92,12 +92,12 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
             Dashboard
           </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
             {user?.full_name
               ? `Welcome back, ${user.full_name.split(' ')[0]}`
               : 'Welcome back'}
@@ -107,13 +107,13 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="inline-flex rounded-xl border border-slate-200 bg-white p-1">
+        <div className="inline-flex w-full max-w-full overflow-x-auto rounded-xl border border-slate-200 bg-white p-1 sm:w-auto">
           {PRESETS.map((p) => (
             <button
               key={p.key}
               type="button"
               onClick={() => setPreset(p.key)}
-              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+              className={`shrink-0 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                 preset === p.key
                   ? 'bg-brand-600 text-white'
                   : 'text-slate-600 hover:bg-slate-50'

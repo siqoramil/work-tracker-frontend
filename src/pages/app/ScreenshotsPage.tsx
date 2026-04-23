@@ -62,7 +62,7 @@ export default function ScreenshotsPage() {
         <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
           Tracking
         </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
           Screenshots
         </h1>
         <p className="mt-2 text-sm text-slate-600">
@@ -71,13 +71,13 @@ export default function ScreenshotsPage() {
       </div>
 
       <form
-        className="mb-6 flex flex-wrap items-end gap-4 rounded-2xl border border-slate-200 bg-white p-4"
+        className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-end"
         onSubmit={(e) => {
           e.preventDefault()
           setApplied(draft)
         }}
       >
-        <div className="min-w-[240px] flex-1">
+        <div className="sm:col-span-2 lg:col-span-1">
           <Input
             label="User ID (optional)"
             placeholder="Leave blank for all users"
@@ -85,23 +85,19 @@ export default function ScreenshotsPage() {
             onChange={(e) => setDraft({ ...draft, userId: e.target.value })}
           />
         </div>
-        <div className="min-w-[160px]">
-          <Input
-            label="From"
-            type="date"
-            value={draft.dateFrom}
-            onChange={(e) => setDraft({ ...draft, dateFrom: e.target.value })}
-          />
-        </div>
-        <div className="min-w-[160px]">
-          <Input
-            label="To"
-            type="date"
-            value={draft.dateTo}
-            onChange={(e) => setDraft({ ...draft, dateTo: e.target.value })}
-          />
-        </div>
-        <Button type="submit" loading={isFetching}>
+        <Input
+          label="From"
+          type="date"
+          value={draft.dateFrom}
+          onChange={(e) => setDraft({ ...draft, dateFrom: e.target.value })}
+        />
+        <Input
+          label="To"
+          type="date"
+          value={draft.dateTo}
+          onChange={(e) => setDraft({ ...draft, dateTo: e.target.value })}
+        />
+        <Button type="submit" loading={isFetching} className="sm:col-span-2 lg:col-span-1 w-full sm:w-auto">
           Apply
         </Button>
       </form>

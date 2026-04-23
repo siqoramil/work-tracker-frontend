@@ -70,13 +70,13 @@ export default function LandingPage() {
 
       <MarketingNav />
 
-      <section className="relative mx-auto max-w-7xl px-5 pt-16 pb-20 sm:px-8 sm:pt-20 lg:pt-28">
+      <section className="relative mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 sm:pt-20 sm:pb-20 lg:pt-28">
         <div className="flex flex-col items-center text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-medium text-brand-700 shadow-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             New · Project-level insights 2.0
           </span>
-          <h1 className="mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
             Time tracking that your team will{' '}
             <span className="relative inline-block">
               <span className="relative z-10 text-brand-700">actually use</span>
@@ -84,19 +84,19 @@ export default function LandingPage() {
             </span>
             .
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-slate-600">
+          <p className="mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
             WorkTracker gives admins a single place to manage people, projects,
             and payouts — while your team stays focused on the work that moves
             the business.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-            <Link to="/auth/signup">
-              <Button className="px-6 py-3 text-base">
+          <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:w-auto sm:flex-row sm:items-center">
+            <Link to="/auth/signup" className="contents sm:block">
+              <Button className="w-full px-6 py-3 text-base sm:w-auto">
                 Start 14-day free trial
               </Button>
             </Link>
-            <a href="#features">
-              <Button variant="secondary" className="px-6 py-3 text-base">
+            <a href="#features" className="contents sm:block">
+              <Button variant="secondary" className="w-full px-6 py-3 text-base sm:w-auto">
                 See how it works
               </Button>
             </a>
@@ -163,8 +163,8 @@ export default function LandingPage() {
                 app.worktracker.io / dashboard
               </span>
             </div>
-            <div className="grid grid-cols-12 gap-4 p-5">
-              <aside className="col-span-3 hidden flex-col gap-1 sm:flex">
+            <div className="grid grid-cols-12 gap-3 p-3 sm:gap-4 sm:p-5">
+              <aside className="col-span-3 hidden flex-col gap-1 md:flex">
                 {[
                   'Dashboard',
                   'Team',
@@ -184,8 +184,8 @@ export default function LandingPage() {
                   </div>
                 ))}
               </aside>
-              <main className="col-span-12 sm:col-span-9">
-                <div className="grid grid-cols-3 gap-3">
+              <main className="col-span-12 md:col-span-9">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {[
                     { label: 'Hours this week', value: '412h', delta: '+8%' },
                     { label: 'Active projects', value: '23', delta: '+2' },
@@ -193,12 +193,12 @@ export default function LandingPage() {
                   ].map((c) => (
                     <div
                       key={c.label}
-                      className="rounded-xl border border-slate-200 bg-white p-3"
+                      className="rounded-xl border border-slate-200 bg-white p-2.5 sm:p-3"
                     >
-                      <p className="text-[10px] uppercase tracking-wide text-slate-400">
+                      <p className="text-[9px] uppercase tracking-wide text-slate-400 sm:text-[10px]">
                         {c.label}
                       </p>
-                      <p className="mt-1 text-xl font-semibold text-slate-900">
+                      <p className="mt-1 text-base font-semibold text-slate-900 sm:text-xl">
                         {c.value}
                       </p>
                       <p className="text-[10px] text-brand-600">{c.delta}</p>
@@ -243,12 +243,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+      <section id="features" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
             Built for admins
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
             Everything you need to run a productive team.
           </h2>
           <p className="mt-4 text-base text-slate-600">
@@ -287,18 +287,18 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="how" className="bg-slate-50/60 py-24">
+      <section id="how" className="bg-slate-50/60 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="max-w-2xl">
             <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
               How it works
             </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
               Up and running in three steps.
             </h2>
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:mt-14 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {steps.map((s) => (
               <div
                 key={s.num}
@@ -317,7 +317,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="customers" className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
+      <section id="customers" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
         <figure className="mx-auto max-w-3xl text-center">
           <svg
             viewBox="0 0 24 24"
@@ -327,7 +327,7 @@ export default function LandingPage() {
           >
             <path d="M9 7H5a2 2 0 00-2 2v4a2 2 0 002 2h2v4H3v2h8v-2H9v-8a2 2 0 00-2-2zm12 0h-4a2 2 0 00-2 2v4a2 2 0 002 2h2v4h-4v2h8v-2h-2v-8a2 2 0 00-2-2z" />
           </svg>
-          <blockquote className="mt-6 text-2xl font-medium leading-relaxed tracking-tight text-slate-900 sm:text-3xl">
+          <blockquote className="mt-6 text-xl font-medium leading-relaxed tracking-tight text-slate-900 sm:text-3xl">
             “We replaced three tools with WorkTracker. Our weekly payroll cycle
             dropped from 2 days to 40 minutes — and the team actually enjoys
             using it.”
@@ -346,15 +346,15 @@ export default function LandingPage() {
         </figure>
       </section>
 
-      <section id="pricing" className="mx-auto max-w-7xl px-5 pb-24 sm:px-8">
+      <section id="pricing" className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
         <div className="overflow-hidden rounded-3xl bg-brand-700 text-white">
-          <div className="relative grid items-center gap-8 p-10 lg:grid-cols-2 lg:p-14">
+          <div className="relative grid items-center gap-6 p-6 sm:gap-8 sm:p-10 lg:grid-cols-2 lg:p-14">
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               <div className="absolute -top-20 -right-10 h-80 w-80 rounded-full bg-brand-400/30 blur-3xl" />
               <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-brand-300/20 blur-3xl" />
             </div>
             <div className="relative">
-              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-4xl">
                 Ready to give your admins their time back?
               </h2>
               <p className="mt-4 max-w-lg text-brand-50/90">
@@ -362,19 +362,19 @@ export default function LandingPage() {
                 just a faster way to run your team.
               </p>
             </div>
-            <div className="relative flex flex-col items-start gap-3 sm:flex-row lg:justify-end">
-              <Link to="/auth/signup">
+            <div className="relative flex flex-col items-stretch gap-3 sm:flex-row sm:items-center lg:justify-end">
+              <Link to="/auth/signup" className="contents sm:block">
                 <Button
                   variant="secondary"
-                  className="bg-white px-6 py-3 text-base text-slate-900 hover:bg-slate-100"
+                  className="w-full bg-white px-6 py-3 text-base text-slate-900 hover:bg-slate-100 sm:w-auto"
                 >
                   Start free trial
                 </Button>
               </Link>
-              <Link to="/auth/signin">
+              <Link to="/auth/signin" className="contents sm:block">
                 <Button
                   variant="ghost"
-                  className="px-6 py-3 text-base text-white hover:bg-white/10"
+                  className="w-full px-6 py-3 text-base text-white hover:bg-white/10 sm:w-auto"
                 >
                   I already have an account
                 </Button>

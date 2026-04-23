@@ -66,16 +66,16 @@ export default function DownloadPage() {
 
   return (
     <div>
-      <div className="mb-10 flex items-start justify-between gap-6">
-        <div>
+      <div className="mb-8 sm:mb-10">
+        <div className="max-w-xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             You’re signed in
           </span>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
             Welcome, {user?.full_name || 'admin'} 👋
           </h1>
-          <p className="mt-2 max-w-xl text-slate-600">
+          <p className="mt-2 text-sm text-slate-600 sm:text-base">
             Let’s get you set up. Install the WorkTracker desktop app on every
             computer that should track time — it runs quietly in the background
             and syncs with your admin panel in real time.
@@ -84,7 +84,7 @@ export default function DownloadPage() {
       </div>
 
       <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
-        <div className="grid items-center gap-6 p-8 sm:grid-cols-[1fr_auto] sm:p-10">
+        <div className="grid items-center gap-5 p-5 sm:gap-6 sm:p-8 md:grid-cols-[1fr_auto] md:p-10">
           <div className="flex items-start gap-5">
             <div className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-900/20">
               {primary.icon}
@@ -160,8 +160,8 @@ export default function DownloadPage() {
         })}
       </section>
 
-      <section className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7">
+      <section className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-[1.2fr_1fr]">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
           <h3 className="text-lg font-semibold text-slate-900">
             Installation steps
           </h3>
@@ -232,12 +232,16 @@ export default function DownloadPage() {
               Read the setup guide or chat with support — most installations are
               live in under 3 minutes.
             </p>
-            <div className="mt-4 flex gap-2">
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <a href="#">
-                <Button variant="secondary">Setup guide</Button>
+                <Button variant="secondary" fullWidth>
+                  Setup guide
+                </Button>
               </a>
               <a href="#">
-                <Button variant="ghost">Contact support</Button>
+                <Button variant="ghost" fullWidth>
+                  Contact support
+                </Button>
               </a>
             </div>
           </div>

@@ -53,7 +53,7 @@ export default function SettingsPage() {
         <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
           Tracking
         </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
           Company settings
         </h1>
         <p className="mt-2 text-sm text-slate-600">
