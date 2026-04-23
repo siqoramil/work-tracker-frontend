@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Logo from '@/components/ui/Logo'
 import { useAuthStore } from '@/stores/auth.store'
 
@@ -16,14 +16,8 @@ export default function AppTopbar() {
   const user = useAuthStore((s) => s.user)
   const signOut = useAuthStore((s) => s.signOut)
   const navigate = useNavigate()
-  const location = useLocation()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-
-  useEffect(() => {
-    setMobileNavOpen(false)
-    setUserMenuOpen(false)
-  }, [location.pathname])
 
   const initials = user?.full_name
     ? user.full_name

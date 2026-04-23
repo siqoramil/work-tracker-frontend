@@ -108,7 +108,11 @@ export default function ActivityPage() {
           value={draft.dateTo}
           onChange={(e) => setDraft({ ...draft, dateTo: e.target.value })}
         />
-        <Button type="submit" loading={isFetching} className="sm:col-span-2 lg:col-span-1 w-full sm:w-auto">
+        <Button
+          type="submit"
+          loading={isFetching}
+          className="sm:col-span-2 lg:col-span-1 w-full sm:w-auto"
+        >
           Apply
         </Button>
       </form>

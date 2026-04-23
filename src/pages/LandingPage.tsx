@@ -96,7 +96,10 @@ export default function LandingPage() {
               </Button>
             </Link>
             <a href="#features" className="contents sm:block">
-              <Button variant="secondary" className="w-full px-6 py-3 text-base sm:w-auto">
+              <Button
+                variant="secondary"
+                className="w-full px-6 py-3 text-base sm:w-auto"
+              >
                 See how it works
               </Button>
             </a>
@@ -243,7 +246,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
+      <section
+        id="features"
+        className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24"
+      >
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
             Built for admins
@@ -317,7 +323,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="customers" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
+      <section
+        id="customers"
+        className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24"
+      >
         <figure className="mx-auto max-w-3xl text-center">
           <svg
             viewBox="0 0 24 24"
@@ -346,7 +355,10 @@ export default function LandingPage() {
         </figure>
       </section>
 
-      <section id="pricing" className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
+      <section
+        id="pricing"
+        className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24"
+      >
         <div className="overflow-hidden rounded-3xl bg-brand-700 text-white">
           <div className="relative grid items-center gap-6 p-6 sm:gap-8 sm:p-10 lg:grid-cols-2 lg:p-14">
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
