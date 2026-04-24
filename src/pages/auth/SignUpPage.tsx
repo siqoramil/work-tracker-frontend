@@ -50,10 +50,9 @@ export default function SignUpPage() {
         email: trimmedEmail,
         password,
       })
-      navigate(
-        `/auth/verify-email?email=${encodeURIComponent(trimmedEmail)}`,
-        { replace: true },
-      )
+      navigate(`/auth/verify-email?email=${encodeURIComponent(trimmedEmail)}`, {
+        replace: true,
+      })
     } catch (err) {
       setError(extractApiError(err, 'Unable to create account'))
     } finally {
