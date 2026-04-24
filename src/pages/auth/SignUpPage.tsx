@@ -43,13 +43,17 @@ export default function SignUpPage() {
     setError(null)
     setLoading(true)
     try {
+      const trimmedEmail = email.trim()
       await signUp({
         full_name: fullName.trim(),
         company_name: companyName.trim(),
-        email: email.trim(),
+        email: trimmedEmail,
         password,
       })
-      navigate('/app/activity', { replace: true })
+      navigate(
+        `/auth/verify-email?email=${encodeURIComponent(trimmedEmail)}`,
+        { replace: true },
+      )
     } catch (err) {
       setError(extractApiError(err, 'Unable to create account'))
     } finally {

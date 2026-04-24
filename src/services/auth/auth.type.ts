@@ -49,12 +49,11 @@ export type ResetPasswordResponse = {
 }
 
 export type VerifyEmailPayload = {
-  token: string
+  email: string
+  code: string
 }
 
-export type VerifyEmailResponse = {
-  message: string
-}
+export type VerifyEmailResponse = TokenResponse
 
 export type InvitePayload = {
   email: string

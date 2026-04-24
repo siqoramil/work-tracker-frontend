@@ -19,6 +19,7 @@ type AuthState = {
     email: string
     password: string
   }) => Promise<void>
+  verifyEmailCode: (input: { email: string; code: string }) => Promise<void>
   refreshUser: () => Promise<void>
   signOut: () => void
 }
@@ -50,7 +51,10 @@ export const useAuthStore = create<AuthState>()(
 
       signUp: async ({ full_name, company_name, email, password }) => {
         await authService.signup({ full_name, company_name, email, password })
-        const tokens = await authService.login({ email, password })
+      },
+
+      verifyEmailCode: async ({ email, code }) => {
+        const tokens = await authService.verifyEmail({ email, code })
         set({
           accessToken: tokens.access_token,
           refreshToken: tokens.refresh_token,
