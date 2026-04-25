@@ -23,7 +23,7 @@ http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 let refreshPromise: Promise<string | null> | null = null
 
-async function refreshAccessToken(): Promise<string | null> {
+export async function refreshAccessToken(): Promise<string | null> {
   const { refreshToken, setTokens, signOut } = useAuthStore.getState()
   if (!refreshToken) return null
 
@@ -42,6 +42,15 @@ async function refreshAccessToken(): Promise<string | null> {
     signOut()
     return null
   }
+}
+
+export function bootstrapAuth(): Promise<string | null> {
+  const { refreshToken } = useAuthStore.getState()
+  if (!refreshToken) return Promise.resolve(null)
+  refreshPromise ??= refreshAccessToken().finally(() => {
+    refreshPromise = null
+  })
+  return refreshPromise
 }
 
 http.interceptors.response.use(
