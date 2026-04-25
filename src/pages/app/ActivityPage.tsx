@@ -107,16 +107,20 @@ export default function ActivityPage() {
       }),
   })
 
-  const rows = data ?? []
+  const rows = useMemo(() => data ?? [], [data])
 
-  const totals = rows.reduce(
-    (acc, r) => {
-      acc.keyboard += r.keyboard_count
-      acc.mouse += r.mouse_count
-      acc.activitySum += r.activity_percent
-      return acc
-    },
-    { keyboard: 0, mouse: 0, activitySum: 0 },
+  const totals = useMemo(
+    () =>
+      rows.reduce(
+        (acc, r) => {
+          acc.keyboard += r.keyboard_count
+          acc.mouse += r.mouse_count
+          acc.activitySum += r.activity_percent
+          return acc
+        },
+        { keyboard: 0, mouse: 0, activitySum: 0 },
+      ),
+    [rows],
   )
   const avgActivity =
     rows.length > 0 ? Math.round(totals.activitySum / rows.length) : 0
@@ -140,6 +144,7 @@ export default function ActivityPage() {
   }, [rows, sortBy, sortDir])
 
   function toggleSort(key: SortKey) {
+    setVisibleCount(PAGE_SIZE)
     if (sortBy === key) {
       setSortDir(sortDir === 'asc' ? 'desc' : 'asc')
     } else {
@@ -155,11 +160,6 @@ export default function ActivityPage() {
     }
   }
 
-  // Reset visible count whenever filters or sort change.
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE)
-  }, [applied, sortBy, sortDir])
-
   // Load more rows when sentinel is intersected.
   useEffect(() => {
     const node = sentinelRef.current
@@ -169,9 +169,7 @@ export default function ActivityPage() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setVisibleCount((c) =>
-            Math.min(c + PAGE_SIZE, sortedRows.length),
-          )
+          setVisibleCount((c) => Math.min(c + PAGE_SIZE, sortedRows.length))
         }
       },
       { rootMargin: '120px' },
@@ -204,6 +202,7 @@ export default function ActivityPage() {
         onSubmit={(e) => {
           e.preventDefault()
           setApplied(draft)
+          setVisibleCount(PAGE_SIZE)
         }}
       >
         <div className="sm:col-span-2 lg:col-span-1">
