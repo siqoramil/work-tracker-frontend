@@ -4,7 +4,7 @@ stages:
 
 variables:
   NODE_IMAGE: node:22-alpine
-  DEPLOY_BRANCH: "main"
+  DEPLOY_BRANCH: 'main'
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}

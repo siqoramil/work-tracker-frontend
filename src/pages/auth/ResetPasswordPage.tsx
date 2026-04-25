@@ -29,7 +29,9 @@ export default function ResetPasswordPage() {
       await authService.forgotPassword({ email: email.trim() })
       setStep('confirm')
     } catch (err) {
-      setError(extractApiError(err, t('auth.resetPassword.request.errorFallback')))
+      setError(
+        extractApiError(err, t('auth.resetPassword.request.errorFallback')),
+      )
     } finally {
       setLoading(false)
     }
@@ -62,7 +64,9 @@ export default function ResetPasswordPage() {
       })
       setStep('done')
     } catch (err) {
-      setError(extractApiError(err, t('auth.resetPassword.confirm.errorFallback')))
+      setError(
+        extractApiError(err, t('auth.resetPassword.confirm.errorFallback')),
+      )
     } finally {
       setLoading(false)
     }
@@ -208,7 +212,9 @@ export default function ResetPasswordPage() {
             label={t('auth.resetPassword.confirm.confirmPassword')}
             type="password"
             autoComplete="new-password"
-            placeholder={t('auth.resetPassword.confirm.confirmPasswordPlaceholder')}
+            placeholder={t(
+              'auth.resetPassword.confirm.confirmPasswordPlaceholder',
+            )}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required

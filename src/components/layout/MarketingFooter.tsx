@@ -10,8 +10,14 @@ export default function MarketingFooter() {
       title: t('marketingFooter.columns.product'),
       items: [
         { key: 'features', label: t('marketingFooter.columns.items.features') },
-        { key: 'integrations', label: t('marketingFooter.columns.items.integrations') },
-        { key: 'changelog', label: t('marketingFooter.columns.items.changelog') },
+        {
+          key: 'integrations',
+          label: t('marketingFooter.columns.items.integrations'),
+        },
+        {
+          key: 'changelog',
+          label: t('marketingFooter.columns.items.changelog'),
+        },
         { key: 'roadmap', label: t('marketingFooter.columns.items.roadmap') },
       ],
     },
@@ -19,7 +25,10 @@ export default function MarketingFooter() {
       title: t('marketingFooter.columns.company'),
       items: [
         { key: 'about', label: t('marketingFooter.columns.items.about') },
-        { key: 'customers', label: t('marketingFooter.columns.items.customers') },
+        {
+          key: 'customers',
+          label: t('marketingFooter.columns.items.customers'),
+        },
         { key: 'careers', label: t('marketingFooter.columns.items.careers') },
         { key: 'contact', label: t('marketingFooter.columns.items.contact') },
       ],
@@ -27,7 +36,10 @@ export default function MarketingFooter() {
     {
       title: t('marketingFooter.columns.resources'),
       items: [
-        { key: 'helpCenter', label: t('marketingFooter.columns.items.helpCenter') },
+        {
+          key: 'helpCenter',
+          label: t('marketingFooter.columns.items.helpCenter'),
+        },
         { key: 'blog', label: t('marketingFooter.columns.items.blog') },
         { key: 'guides', label: t('marketingFooter.columns.items.guides') },
         { key: 'apiDocs', label: t('marketingFooter.columns.items.apiDocs') },

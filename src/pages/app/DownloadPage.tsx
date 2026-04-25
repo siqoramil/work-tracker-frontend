@@ -90,7 +90,9 @@ export default function DownloadPage() {
             {t('download.signedInBadge')}
           </span>
           <h1 className="mt-2.5 text-xl font-semibold tracking-tight text-slate-900 sm:mt-3 sm:text-2xl md:text-3xl lg:text-4xl">
-            {t('download.welcome', { name: user?.full_name || t('download.fallbackName') })}
+            {t('download.welcome', {
+              name: user?.full_name || t('download.fallbackName'),
+            })}
           </h1>
           <p className="mt-2 text-sm text-slate-600 md:text-base">
             {t('download.subtitle')}
@@ -177,7 +179,9 @@ export default function DownloadPage() {
               </p>
               <a href={p.url} download className="mt-4 sm:mt-5">
                 <Button variant="secondary" fullWidth>
-                  <span className="truncate">{t('download.downloadFor', { platform: p.name })}</span>
+                  <span className="truncate">
+                    {t('download.downloadFor', { platform: p.name })}
+                  </span>
                 </Button>
               </a>
             </div>
@@ -203,7 +207,8 @@ export default function DownloadPage() {
               {
                 title: t('download.installation.step3Title'),
                 text: t('download.installation.step3Text', {
-                  email: user?.email ?? t('download.installation.step3Fallback'),
+                  email:
+                    user?.email ?? t('download.installation.step3Fallback'),
                 }),
               },
               {
@@ -253,7 +258,9 @@ export default function DownloadPage() {
           </div>
 
           <div className="rounded-2xl border border-brand-200 bg-brand-50 p-5 sm:p-6">
-            <h4 className="text-sm font-semibold text-brand-900">{t('download.help.title')}</h4>
+            <h4 className="text-sm font-semibold text-brand-900">
+              {t('download.help.title')}
+            </h4>
             <p className="mt-1 text-sm text-brand-900/80">
               {t('download.help.text')}
             </p>

@@ -81,7 +81,9 @@ export default function LandingPage() {
           <h1 className="mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
             {t('landing.hero.titleStart')}{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 text-brand-700">{t('landing.hero.titleHighlight')}</span>
+              <span className="relative z-10 text-brand-700">
+                {t('landing.hero.titleHighlight')}
+              </span>
               <span className="absolute inset-x-0 bottom-1 -z-0 h-3 bg-brand-200/70" />
             </span>
             .

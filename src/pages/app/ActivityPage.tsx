@@ -194,9 +194,7 @@ export default function ActivityPage() {
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
           {t('activity.title')}
         </h1>
-        <p className="mt-2 text-sm text-slate-600">
-          {t('activity.subtitle')}
-        </p>
+        <p className="mt-2 text-sm text-slate-600">{t('activity.subtitle')}</p>
       </div>
 
       <form
@@ -248,8 +246,14 @@ export default function ActivityPage() {
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
         {[
           { label: t('activity.stats.entries'), value: rows.length.toString() },
-          { label: t('activity.stats.keyboardEvents'), value: totals.keyboard.toLocaleString() },
-          { label: t('activity.stats.mouseEvents'), value: totals.mouse.toLocaleString() },
+          {
+            label: t('activity.stats.keyboardEvents'),
+            value: totals.keyboard.toLocaleString(),
+          },
+          {
+            label: t('activity.stats.mouseEvents'),
+            value: totals.mouse.toLocaleString(),
+          },
         ].map((c) => (
           <div
             key={c.label}
@@ -268,7 +272,9 @@ export default function ActivityPage() {
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3">
           <div className="flex flex-col">
-            <h3 className="text-sm font-semibold text-slate-900">{t('activity.table.entries')}</h3>
+            <h3 className="text-sm font-semibold text-slate-900">
+              {t('activity.table.entries')}
+            </h3>
             <span className="text-[11px] text-slate-400">
               {t('activity.table.timezoneNote', { tz: localTz })}
             </span>
@@ -407,7 +413,9 @@ export default function ActivityPage() {
                         colSpan={6}
                         className="px-5 py-4 text-center text-xs text-slate-400"
                       >
-                        {t('activity.table.endOfResults', { count: sortedRows.length })}
+                        {t('activity.table.endOfResults', {
+                          count: sortedRows.length,
+                        })}
                       </td>
                     </tr>
                   )}

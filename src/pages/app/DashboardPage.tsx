@@ -100,7 +100,9 @@ export default function DashboardPage() {
           </p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
             {user?.full_name
-              ? t('dashboard.welcomeName', { name: user.full_name.split(' ')[0] })
+              ? t('dashboard.welcomeName', {
+                  name: user.full_name.split(' ')[0],
+                })
               : t('dashboard.welcome')}
           </h1>
           <p className="mt-2 text-sm text-slate-600">
@@ -184,10 +186,18 @@ export default function DashboardPage() {
               <table className="min-w-full divide-y divide-slate-100 text-sm">
                 <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                   <tr>
-                    <th className="px-5 py-3">{t('dashboard.table.interval')}</th>
-                    <th className="px-5 py-3 text-right">{t('dashboard.table.keyboard')}</th>
-                    <th className="px-5 py-3 text-right">{t('dashboard.table.mouse')}</th>
-                    <th className="px-5 py-3 text-right">{t('dashboard.table.activity')}</th>
+                    <th className="px-5 py-3">
+                      {t('dashboard.table.interval')}
+                    </th>
+                    <th className="px-5 py-3 text-right">
+                      {t('dashboard.table.keyboard')}
+                    </th>
+                    <th className="px-5 py-3 text-right">
+                      {t('dashboard.table.mouse')}
+                    </th>
+                    <th className="px-5 py-3 text-right">
+                      {t('dashboard.table.activity')}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">

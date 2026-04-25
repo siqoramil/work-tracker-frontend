@@ -59,9 +59,7 @@ export default function TeamPage() {
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
             {t('team.title')}
           </h1>
-          <p className="mt-2 text-sm text-slate-600">
-            {t('team.subtitle')}
-          </p>
+          <p className="mt-2 text-sm text-slate-600">{t('team.subtitle')}</p>
         </div>
 
         {error && (
