@@ -1,9 +1,11 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { trackingApi } from '@/services/tracking'
 import { extractApiError } from '@/services/auth'
+
+const PAGE_SIZE = 25
 
 function toIsoStart(date: string) {
   return date ? `${date}T00:00:00Z` : undefined
@@ -13,7 +15,9 @@ function toIsoEnd(date: string) {
 }
 function formatDate(iso: string) {
   try {
-    return new Date(iso).toLocaleString()
+    return new Date(iso).toLocaleString(undefined, {
+      timeZoneName: 'short',
+    })
   } catch {
     return iso
   }
@@ -33,6 +37,52 @@ type Filters = {
   dateTo: string
 }
 
+type SortKey =
+  | 'interval_start'
+  | 'user_id'
+  | 'keyboard_count'
+  | 'mouse_count'
+  | 'activity_percent'
+type SortDir = 'asc' | 'desc'
+
+function SortableHeader({
+  label,
+  sortKey,
+  sortBy,
+  sortDir,
+  onClick,
+  align = 'left',
+}: {
+  label: string
+  sortKey: SortKey
+  sortBy: SortKey
+  sortDir: SortDir
+  onClick: (key: SortKey) => void
+  align?: 'left' | 'right'
+}) {
+  const active = sortBy === sortKey
+  const arrow = active ? (sortDir === 'asc' ? '↑' : '↓') : '↕'
+  return (
+    <th className={`px-5 py-3 ${align === 'right' ? 'text-right' : ''}`}>
+      <button
+        type="button"
+        onClick={() => onClick(sortKey)}
+        className={`inline-flex items-center gap-1 uppercase tracking-wide transition hover:text-slate-700 ${
+          active ? 'text-slate-900' : 'text-slate-500'
+        } ${align === 'right' ? 'flex-row-reverse' : ''}`}
+      >
+        <span>{label}</span>
+        <span
+          className={`text-[10px] ${active ? 'opacity-100' : 'opacity-40'}`}
+          aria-hidden
+        >
+          {arrow}
+        </span>
+      </button>
+    </th>
+  )
+}
+
 export default function ActivityPage() {
   const defaults = useMemo(() => computeDefaultRange(), [])
 
@@ -42,6 +92,10 @@ export default function ActivityPage() {
     dateTo: defaults.today,
   })
   const [applied, setApplied] = useState<Filters>(draft)
+  const [sortBy, setSortBy] = useState<SortKey>('interval_start')
+  const [sortDir, setSortDir] = useState<SortDir>('desc')
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const sentinelRef = useRef<HTMLTableRowElement | null>(null)
 
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ['activity', applied],
@@ -66,6 +120,70 @@ export default function ActivityPage() {
   )
   const avgActivity =
     rows.length > 0 ? Math.round(totals.activitySum / rows.length) : 0
+
+  const sortedRows = useMemo(() => {
+    const copy = [...rows]
+    copy.sort((a, b) => {
+      let cmp = 0
+      if (sortBy === 'interval_start') {
+        cmp =
+          new Date(a.interval_start).getTime() -
+          new Date(b.interval_start).getTime()
+      } else if (sortBy === 'user_id') {
+        cmp = a.user_id.localeCompare(b.user_id)
+      } else {
+        cmp = (a[sortBy] as number) - (b[sortBy] as number)
+      }
+      return sortDir === 'asc' ? cmp : -cmp
+    })
+    return copy
+  }, [rows, sortBy, sortDir])
+
+  function toggleSort(key: SortKey) {
+    if (sortBy === key) {
+      setSortDir(sortDir === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortBy(key)
+      setSortDir(
+        key === 'interval_start' ||
+          key === 'keyboard_count' ||
+          key === 'mouse_count' ||
+          key === 'activity_percent'
+          ? 'desc'
+          : 'asc',
+      )
+    }
+  }
+
+  // Reset visible count whenever filters or sort change.
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE)
+  }, [applied, sortBy, sortDir])
+
+  // Load more rows when sentinel is intersected.
+  useEffect(() => {
+    const node = sentinelRef.current
+    if (!node) return
+    if (visibleCount >= sortedRows.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((c) =>
+            Math.min(c + PAGE_SIZE, sortedRows.length),
+          )
+        }
+      },
+      { rootMargin: '120px' },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [visibleCount, sortedRows.length])
+
+  const visibleRows = sortedRows.slice(0, visibleCount)
+  const hasMore = visibleCount < sortedRows.length
+
+  const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone
 
   return (
     <div>
@@ -147,10 +265,23 @@ export default function ActivityPage() {
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
-          <h3 className="text-sm font-semibold text-slate-900">Entries</h3>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3">
+          <div className="flex flex-col">
+            <h3 className="text-sm font-semibold text-slate-900">Entries</h3>
+            <span className="text-[11px] text-slate-400">
+              Times shown in your local timezone ({localTz})
+            </span>
+          </div>
           <span className="text-xs text-slate-500">
-            Avg. activity{' '}
+            Showing{' '}
+            <span className="font-semibold text-slate-900">
+              {visibleRows.length}
+            </span>{' '}
+            of{' '}
+            <span className="font-semibold text-slate-900">
+              {sortedRows.length}
+            </span>{' '}
+            · Avg. activity{' '}
             <span className="font-semibold text-slate-900">{avgActivity}%</span>
           </span>
         </div>
@@ -158,66 +289,128 @@ export default function ActivityPage() {
           <table className="min-w-full divide-y divide-slate-100 text-sm">
             <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
               <tr>
-                <th className="px-5 py-3">Interval start</th>
-                <th className="px-5 py-3">User</th>
-                <th className="px-5 py-3 text-right">Keyboard</th>
-                <th className="px-5 py-3 text-right">Mouse</th>
-                <th className="px-5 py-3 text-right">Activity</th>
+                <th className="w-12 px-5 py-3 text-right">#</th>
+                <SortableHeader
+                  label="Interval start"
+                  sortKey="interval_start"
+                  sortBy={sortBy}
+                  sortDir={sortDir}
+                  onClick={toggleSort}
+                />
+                <SortableHeader
+                  label="User"
+                  sortKey="user_id"
+                  sortBy={sortBy}
+                  sortDir={sortDir}
+                  onClick={toggleSort}
+                />
+                <SortableHeader
+                  label="Keyboard"
+                  sortKey="keyboard_count"
+                  sortBy={sortBy}
+                  sortDir={sortDir}
+                  onClick={toggleSort}
+                  align="right"
+                />
+                <SortableHeader
+                  label="Mouse"
+                  sortKey="mouse_count"
+                  sortBy={sortBy}
+                  sortDir={sortDir}
+                  onClick={toggleSort}
+                  align="right"
+                />
+                <SortableHeader
+                  label="Activity"
+                  sortKey="activity_percent"
+                  sortBy={sortBy}
+                  sortDir={sortDir}
+                  onClick={toggleSort}
+                  align="right"
+                />
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     className="px-5 py-10 text-center text-sm text-slate-500"
                   >
                     Loading…
                   </td>
                 </tr>
-              ) : rows.length === 0 ? (
+              ) : sortedRows.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     className="px-5 py-10 text-center text-sm text-slate-500"
                   >
                     No activity found for the selected filters.
                   </td>
                 </tr>
               ) : (
-                rows.map((r) => (
-                  <tr key={r.id}>
-                    <td className="px-5 py-3 text-slate-700">
-                      {formatDate(r.interval_start)}
-                    </td>
-                    <td className="px-5 py-3">
-                      <code className="text-xs text-slate-500">
-                        {r.user_id.slice(0, 8)}…
-                      </code>
-                    </td>
-                    <td className="px-5 py-3 text-right tabular-nums">
-                      {r.keyboard_count}
-                    </td>
-                    <td className="px-5 py-3 text-right tabular-nums">
-                      {r.mouse_count}
-                    </td>
-                    <td className="px-5 py-3 text-right">
-                      <span className="inline-flex items-center gap-2">
-                        <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
-                          <span
-                            className="block h-full bg-brand-500"
-                            style={{
-                              width: `${Math.max(0, Math.min(100, r.activity_percent))}%`,
-                            }}
-                          />
+                <>
+                  {visibleRows.map((r, idx) => (
+                    <tr key={r.id}>
+                      <td className="px-5 py-3 text-right text-xs text-slate-400 tabular-nums">
+                        {idx + 1}
+                      </td>
+                      <td className="px-5 py-3 text-slate-700">
+                        {formatDate(r.interval_start)}
+                      </td>
+                      <td className="px-5 py-3">
+                        <code className="text-xs text-slate-500">
+                          {r.user_id.slice(0, 8)}…
+                        </code>
+                      </td>
+                      <td className="px-5 py-3 text-right tabular-nums">
+                        {r.keyboard_count}
+                      </td>
+                      <td className="px-5 py-3 text-right tabular-nums">
+                        {r.mouse_count}
+                      </td>
+                      <td className="px-5 py-3 text-right">
+                        <span className="inline-flex items-center gap-2">
+                          <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
+                            <span
+                              className="block h-full bg-brand-500"
+                              style={{
+                                width: `${Math.max(0, Math.min(100, r.activity_percent))}%`,
+                              }}
+                            />
+                          </span>
+                          <span className="w-10 text-right font-medium text-slate-700 tabular-nums">
+                            {Math.round(r.activity_percent)}%
+                          </span>
                         </span>
-                        <span className="w-10 text-right font-medium text-slate-700 tabular-nums">
-                          {Math.round(r.activity_percent)}%
+                      </td>
+                    </tr>
+                  ))}
+                  {hasMore && (
+                    <tr ref={sentinelRef}>
+                      <td
+                        colSpan={6}
+                        className="px-5 py-6 text-center text-xs text-slate-400"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <span className="h-3 w-3 animate-spin rounded-full border-2 border-slate-200 border-t-brand-500" />
+                          Loading more…
                         </span>
-                      </span>
-                    </td>
-                  </tr>
-                ))
+                      </td>
+                    </tr>
+                  )}
+                  {!hasMore && sortedRows.length > PAGE_SIZE && (
+                    <tr>
+                      <td
+                        colSpan={6}
+                        className="px-5 py-4 text-center text-xs text-slate-400"
+                      >
+                        End of results · {sortedRows.length} entries
+                      </td>
+                    </tr>
+                  )}
+                </>
               )}
             </tbody>
           </table>
