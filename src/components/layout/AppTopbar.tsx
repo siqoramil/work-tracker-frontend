@@ -1,23 +1,26 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Logo from '@/components/ui/Logo'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 import { useAuthStore } from '@/stores/auth.store'
 
-const navItems = [
-  { to: '/app/dashboard', label: 'Dashboard' },
-  { to: '/app/activity', label: 'Activity' },
-  { to: '/app/screenshots', label: 'Screenshots' },
-  { to: '/app/team', label: 'Team' },
-  { to: '/app/settings', label: 'Settings' },
-  { to: '/app/download', label: 'Download' },
-]
-
 export default function AppTopbar() {
+  const { t } = useTranslation()
   const user = useAuthStore((s) => s.user)
   const signOut = useAuthStore((s) => s.signOut)
   const navigate = useNavigate()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+
+  const navItems = [
+    { to: '/app/dashboard', label: t('appNav.dashboard') },
+    { to: '/app/activity', label: t('appNav.activity') },
+    { to: '/app/screenshots', label: t('appNav.screenshots') },
+    { to: '/app/team', label: t('appNav.team') },
+    { to: '/app/settings', label: t('appNav.settings') },
+    { to: '/app/download', label: t('appNav.download') },
+  ]
 
   const initials = user?.full_name
     ? user.full_name
@@ -38,7 +41,7 @@ export default function AppTopbar() {
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-3 sm:h-16 sm:gap-4 sm:px-6 lg:gap-6 lg:px-8">
         <button
           type="button"
-          aria-label="Toggle menu"
+          aria-label={t('common.toggleMenu')}
           aria-expanded={mobileNavOpen}
           onClick={() => setMobileNavOpen((v) => !v)}
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-700 sm:h-10 sm:w-10 lg:hidden"
@@ -82,7 +85,11 @@ export default function AppTopbar() {
           ))}
         </nav>
 
-        <div className="relative ml-auto">
+        <div className="ml-auto hidden items-center md:flex">
+          <LanguageSwitcher />
+        </div>
+
+        <div className="relative ml-auto md:ml-3">
           <button
             type="button"
             onClick={() => setUserMenuOpen((v) => !v)}
@@ -144,7 +151,7 @@ export default function AppTopbar() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Sign out
+                {t('common.signOut')}
               </button>
             </div>
           )}
@@ -177,6 +184,9 @@ export default function AppTopbar() {
                 </NavLink>
               ))}
             </nav>
+            <div className="mx-auto flex max-w-7xl items-center justify-end px-3 pb-3 sm:px-6 sm:pb-4 md:hidden">
+              <LanguageSwitcher />
+            </div>
           </div>
         </>
       )}

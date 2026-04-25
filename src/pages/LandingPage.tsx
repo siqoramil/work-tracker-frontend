@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import MarketingNav from '@/components/layout/MarketingNav'
 import MarketingFooter from '@/components/layout/MarketingFooter'
 import Button from '@/components/ui/Button'
@@ -61,6 +62,7 @@ const steps = [
 const logos = ['NovaCorp', 'Helix', 'Proxima', 'Arclight', 'Bluebird', 'Radix']
 
 export default function LandingPage() {
+  const { t } = useTranslation()
   return (
     <div className="relative min-h-screen bg-white text-slate-800">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px] overflow-hidden">
@@ -74,25 +76,23 @@ export default function LandingPage() {
         <div className="flex flex-col items-center text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-medium text-brand-700 shadow-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
-            New · Project-level insights 2.0
+            {t('landing.hero.badge')}
           </span>
           <h1 className="mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            Time tracking that your team will{' '}
+            {t('landing.hero.titleStart')}{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 text-brand-700">actually use</span>
+              <span className="relative z-10 text-brand-700">{t('landing.hero.titleHighlight')}</span>
               <span className="absolute inset-x-0 bottom-1 -z-0 h-3 bg-brand-200/70" />
             </span>
             .
           </h1>
           <p className="mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
-            WorkTracker gives admins a single place to manage people, projects,
-            and payouts — while your team stays focused on the work that moves
-            the business.
+            {t('landing.hero.subtitle')}
           </p>
           <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:w-auto sm:flex-row sm:items-center">
             <Link to="/auth/signup" className="contents sm:block">
               <Button className="w-full px-6 py-3 text-base sm:w-auto">
-                Start 14-day free trial
+                {t('landing.hero.cta')}
               </Button>
             </Link>
             <a href="#features" className="contents sm:block">
@@ -100,7 +100,7 @@ export default function LandingPage() {
                 variant="secondary"
                 className="w-full px-6 py-3 text-base sm:w-auto"
               >
-                See how it works
+                {t('landing.hero.secondary')}
               </Button>
             </a>
           </div>
@@ -119,7 +119,7 @@ export default function LandingPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-              No credit card required
+              {t('landing.hero.noCard')}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <svg
@@ -135,7 +135,7 @@ export default function LandingPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Free for up to 3 users
+              {t('landing.hero.freeUsers')}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <svg
@@ -151,7 +151,7 @@ export default function LandingPage() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Cancel any time
+              {t('landing.hero.cancelAny')}
             </span>
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function LandingPage() {
       <section className="border-y border-slate-200 bg-white py-10">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <p className="text-center text-xs font-medium uppercase tracking-wider text-slate-400">
-            Trusted by 12,000+ teams
+            {t('landing.trustedBy')}
           </p>
           <div className="mt-6 grid grid-cols-2 items-center gap-6 sm:grid-cols-3 lg:grid-cols-6">
             {logos.map((l) => (

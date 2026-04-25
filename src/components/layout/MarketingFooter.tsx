@@ -1,37 +1,59 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Logo from '@/components/ui/Logo'
 
-const columns = [
-  {
-    title: 'Product',
-    items: ['Features', 'Integrations', 'Changelog', 'Roadmap'],
-  },
-  {
-    title: 'Company',
-    items: ['About', 'Customers', 'Careers', 'Contact'],
-  },
-  {
-    title: 'Resources',
-    items: ['Help center', 'Blog', 'Guides', 'API docs'],
-  },
-  {
-    title: 'Legal',
-    items: ['Terms', 'Privacy', 'Security', 'DPA'],
-  },
-]
-
 export default function MarketingFooter() {
+  const { t } = useTranslation()
+
+  const columns = [
+    {
+      title: t('marketingFooter.columns.product'),
+      items: [
+        { key: 'features', label: t('marketingFooter.columns.items.features') },
+        { key: 'integrations', label: t('marketingFooter.columns.items.integrations') },
+        { key: 'changelog', label: t('marketingFooter.columns.items.changelog') },
+        { key: 'roadmap', label: t('marketingFooter.columns.items.roadmap') },
+      ],
+    },
+    {
+      title: t('marketingFooter.columns.company'),
+      items: [
+        { key: 'about', label: t('marketingFooter.columns.items.about') },
+        { key: 'customers', label: t('marketingFooter.columns.items.customers') },
+        { key: 'careers', label: t('marketingFooter.columns.items.careers') },
+        { key: 'contact', label: t('marketingFooter.columns.items.contact') },
+      ],
+    },
+    {
+      title: t('marketingFooter.columns.resources'),
+      items: [
+        { key: 'helpCenter', label: t('marketingFooter.columns.items.helpCenter') },
+        { key: 'blog', label: t('marketingFooter.columns.items.blog') },
+        { key: 'guides', label: t('marketingFooter.columns.items.guides') },
+        { key: 'apiDocs', label: t('marketingFooter.columns.items.apiDocs') },
+      ],
+    },
+    {
+      title: t('marketingFooter.columns.legal'),
+      items: [
+        { key: 'terms', label: t('marketingFooter.columns.items.terms') },
+        { key: 'privacy', label: t('marketingFooter.columns.items.privacy') },
+        { key: 'security', label: t('marketingFooter.columns.items.security') },
+        { key: 'dpa', label: t('marketingFooter.columns.items.dpa') },
+      ],
+    },
+  ]
+
   return (
     <footer className="border-t border-slate-200 bg-slate-50/50">
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
-        <div className="grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5">
-          <div className="sm:col-span-2 lg:col-span-2">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:gap-8 md:grid-cols-3 md:gap-10 lg:grid-cols-5">
+          <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Logo />
             <p className="mt-4 max-w-sm text-sm text-slate-500">
-              The time-tracking admin platform for teams that care about output
-              — and the people behind it.
+              {t('marketingFooter.tagline')}
             </p>
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-5 flex flex-wrap items-center gap-3">
               {['twitter', 'linkedin', 'github'].map((s) => (
                 <a
                   key={s}
@@ -48,15 +70,15 @@ export default function MarketingFooter() {
           </div>
 
           {columns.map((col) => (
-            <div key={col.title}>
+            <div key={col.title} className="min-w-0">
               <p className="text-sm font-semibold text-slate-900">
                 {col.title}
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 {col.items.map((item) => (
-                  <li key={item}>
+                  <li key={item.key}>
                     <a href="#" className="hover:text-brand-700">
-                      {item}
+                      {item.label}
                     </a>
                   </li>
                 ))}
@@ -65,9 +87,9 @@ export default function MarketingFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-slate-200 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center">
-          <p>
-            © {new Date().getFullYear()} WorkTracker. Crafted by{' '}
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 text-xs text-slate-500 sm:mt-12 md:flex-row md:items-center md:gap-6">
+          <p className="leading-relaxed">
+            {t('marketingFooter.credit', { year: new Date().getFullYear() })}{' '}
             <a
               href="https://ovrin.uz"
               target="_blank"
@@ -78,16 +100,16 @@ export default function MarketingFooter() {
             </a>
             .
           </p>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
             <Link to="/auth/signin" className="hover:text-brand-700">
-              Sign in
+              {t('common.signIn')}
             </Link>
             <a href="#" className="hover:text-brand-700">
-              Status
+              {t('marketingFooter.links.status')}
             </a>
             <a
               href="mailto:siqoramil@gmail.com"
-              className="hover:text-brand-700"
+              className="break-all hover:text-brand-700"
             >
               siqoramil@gmail.com
             </a>

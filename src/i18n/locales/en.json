@@ -1,0 +1,344 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "russian": "Russian",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "close": "Close",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signUp": "Sign up",
+    "startFreeTrial": "Start free trial",
+    "startFree": "Start free",
+    "toggleMenu": "Toggle menu"
+  },
+  "marketingNav": {
+    "links": {
+      "features": "Features",
+      "howItWorks": "How it works",
+      "customers": "Customers",
+      "pricing": "Pricing"
+    }
+  },
+  "marketingFooter": {
+    "tagline": "The time-tracking admin platform for teams that care about output — and the people behind it.",
+    "columns": {
+      "product": "Product",
+      "company": "Company",
+      "resources": "Resources",
+      "legal": "Legal",
+      "items": {
+        "features": "Features",
+        "integrations": "Integrations",
+        "changelog": "Changelog",
+        "roadmap": "Roadmap",
+        "about": "About",
+        "customers": "Customers",
+        "careers": "Careers",
+        "contact": "Contact",
+        "helpCenter": "Help center",
+        "blog": "Blog",
+        "guides": "Guides",
+        "apiDocs": "API docs",
+        "terms": "Terms",
+        "privacy": "Privacy",
+        "security": "Security",
+        "dpa": "DPA"
+      }
+    },
+    "credit": "© {{year}} WorkTracker. Crafted by",
+    "links": {
+      "status": "Status"
+    }
+  },
+  "appNav": {
+    "dashboard": "Dashboard",
+    "activity": "Activity",
+    "screenshots": "Screenshots",
+    "team": "Team",
+    "settings": "Settings",
+    "download": "Download"
+  },
+  "auth": {
+    "signIn": {
+      "badge": "Admin portal",
+      "title": "Welcome back",
+      "subtitle": "Sign in to manage your workspace, team, and projects.",
+      "email": "Email",
+      "emailPlaceholder": "you@company.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Keep me signed in",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "createOne": "Create one",
+      "errorFallback": "Unable to sign in"
+    },
+    "signUp": {
+      "badge": "Create your workspace",
+      "title": "Start tracking in minutes",
+      "subtitle": "Spin up your admin account — no card required for the first 14 days.",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Jane Cooper",
+      "company": "Company",
+      "companyPlaceholder": "Acme Inc.",
+      "workEmail": "Work email",
+      "workEmailPlaceholder": "jane@company.com",
+      "password": "Password",
+      "passwordPlaceholder": "At least 8 characters",
+      "strength": "Strength:",
+      "strengthLabels": {
+        "0": "Too weak",
+        "1": "Weak",
+        "2": "Okay",
+        "3": "Good",
+        "4": "Strong"
+      },
+      "agreeTo": "I agree to the",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "errorFallback": "Unable to create account"
+    },
+    "verifyEmail": {
+      "back": "Back to sign up",
+      "badge": "Email verification",
+      "title": "Enter the 6-digit code",
+      "subtitlePrefix": "We sent a 6-digit code to",
+      "subtitleSuffix": ". Enter it below to confirm your address and finish creating your workspace.",
+      "yourEmail": "your email",
+      "email": "Email",
+      "code": "6-digit code",
+      "codeHint": "Check your email for the code we just sent.",
+      "codePlaceholder": "123456",
+      "submit": "Verify and continue",
+      "wrongEmail": "Wrong email?",
+      "signUpAgain": "Sign up again",
+      "missingEmail": "Missing email — please sign up again.",
+      "invalidCode": "Enter the 6-digit code from your email.",
+      "errorFallback": "Invalid or expired code."
+    },
+    "resetPassword": {
+      "back": "Back to sign in",
+      "badge": "Account recovery",
+      "stepLabels": {
+        "email": "Email",
+        "codePassword": "Code & password",
+        "done": "Done"
+      },
+      "request": {
+        "title": "Reset your password",
+        "subtitle": "Enter the email linked to your account — we'll send you a 6-digit code.",
+        "email": "Email",
+        "emailPlaceholder": "you@company.com",
+        "submit": "Send 6-digit code",
+        "haveCode": "Already have a code?",
+        "enterHere": "Enter it here",
+        "errorFallback": "Unable to send reset code"
+      },
+      "confirm": {
+        "title": "Enter the 6-digit code",
+        "subtitlePrefix": "We sent a 6-digit code to",
+        "subtitleSuffix": ". Enter it below with your new password. The code is valid for 30 minutes.",
+        "yourEmail": "your email",
+        "code": "6-digit code",
+        "codePlaceholder": "123456",
+        "codeHint": "Check your email for the code we just sent.",
+        "newPassword": "New password",
+        "newPasswordPlaceholder": "At least 8 characters",
+        "confirmPassword": "Confirm new password",
+        "confirmPasswordPlaceholder": "Re-enter your new password",
+        "submit": "Update password",
+        "noCode": "Didn't get the code?",
+        "sendNew": "Send a new one",
+        "invalidCode": "Enter the 6-digit code from your email.",
+        "tooShort": "Password must be at least 8 characters long.",
+        "noMatch": "Passwords do not match.",
+        "errorFallback": "Unable to reset password"
+      },
+      "done": {
+        "title": "Password updated",
+        "subtitle": "Your password has been updated. Open the WorkTracker desktop app and sign in with your new password.",
+        "panelTitle": "You're all set",
+        "panelMessage": "Open the WorkTracker desktop app and sign in with your email and the new password.",
+        "goToSignIn": "Go to web sign in"
+      },
+      "remembered": "Remembered it?",
+      "signInInstead": "Sign in instead"
+    }
+  },
+  "dashboard": {
+    "kicker": "Dashboard",
+    "welcome": "Welcome back",
+    "welcomeName": "Welcome back, {{name}}",
+    "subtitle": "Your activity and screenshots captured by the desktop app.",
+    "presets": {
+      "today": "Today",
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days"
+    },
+    "stats": {
+      "keyboardEvents": "Keyboard events",
+      "mouseEvents": "Mouse events",
+      "avgActivity": "Avg. activity",
+      "screenshots": "Screenshots"
+    },
+    "recentIntervals": "Recent intervals",
+    "viewAll": "View all →",
+    "table": {
+      "interval": "Interval",
+      "keyboard": "Keyboard",
+      "mouse": "Mouse",
+      "activity": "Activity",
+      "loading": "Loading…",
+      "empty": "No activity recorded for this range yet."
+    },
+    "latestScreenshots": "Latest screenshots",
+    "noScreenshots": "No screenshots yet.",
+    "desktopNotInstalled": "Desktop app not installed?",
+    "desktopHint": "Download WorkTracker desktop to start tracking automatically.",
+    "downloadDesktop": "Download desktop app",
+    "errorFallback": "Unable to load dashboard data",
+    "close": "Close"
+  },
+  "activity": {
+    "kicker": "Tracking",
+    "title": "Activity logs",
+    "subtitle": "Review keyboard and mouse activity captured by the desktop app.",
+    "filters": {
+      "userId": "User ID (optional)",
+      "userIdPlaceholder": "Leave blank for all users",
+      "from": "From",
+      "to": "To",
+      "apply": "Apply"
+    },
+    "stats": {
+      "entries": "Entries",
+      "keyboardEvents": "Keyboard events",
+      "mouseEvents": "Mouse events"
+    },
+    "table": {
+      "entries": "Entries",
+      "timezoneNote": "Times shown in your local timezone ({{tz}})",
+      "showing": "Showing",
+      "of": "of",
+      "avgActivity": "Avg. activity",
+      "intervalStart": "Interval start",
+      "user": "User",
+      "keyboard": "Keyboard",
+      "mouse": "Mouse",
+      "activity": "Activity",
+      "loading": "Loading…",
+      "loadingMore": "Loading more…",
+      "endOfResults": "End of results · {{count}} entries"
+    },
+    "empty": "No activity found for the selected filters.",
+    "errorFallback": "Unable to load activity logs"
+  },
+  "screenshots": {
+    "kicker": "Tracking",
+    "title": "Screenshots",
+    "subtitle": "Browse screenshots uploaded by the desktop app for your team.",
+    "filters": {
+      "userId": "User ID (optional)",
+      "userIdPlaceholder": "Leave blank for all users",
+      "from": "From",
+      "to": "To",
+      "apply": "Apply"
+    },
+    "loading": "Loading…",
+    "empty": "No screenshots found for the selected filters.",
+    "errorFallback": "Unable to load screenshots",
+    "close": "Close"
+  },
+  "team": {
+    "kicker": "Team",
+    "title": "Invite teammates",
+    "subtitle": "Create accounts for people on your team. Share the temporary password with them — they can change it later from the reset password page.",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Jane Cooper",
+    "workEmail": "Work email",
+    "workEmailPlaceholder": "jane@company.com",
+    "tempPassword": "Temporary password",
+    "tempPasswordPlaceholder": "At least 8 characters",
+    "tempPasswordHint": "You'll share this with the teammate. They can reset it anytime.",
+    "send": "Send invite",
+    "recentlyInvited": "Recently invited",
+    "recentlyInvitedEmpty": "People you invite during this session will appear here.",
+    "tooShort": "Password must be at least 8 characters long.",
+    "errorFallback": "Unable to send invite"
+  },
+  "settings": {
+    "kicker": "Tracking",
+    "title": "Company settings",
+    "subtitle": "These settings apply to every teammate tracked by the desktop app.",
+    "loading": "Loading settings…",
+    "interval": "Activity interval (minutes)",
+    "intervalHint": "How often desktop clients roll up keyboard & mouse counts into an activity log entry.",
+    "companyId": "Company ID",
+    "save": "Save changes",
+    "saved": "Tracking settings saved.",
+    "intervalInvalid": "Interval must be a positive number of minutes.",
+    "errorFallback": "Unable to update tracking settings",
+    "loadErrorFallback": "Unable to load tracking settings"
+  },
+  "download": {
+    "signedInBadge": "You're signed in",
+    "welcome": "Welcome, {{name}} 👋",
+    "fallbackName": "admin",
+    "subtitle": "Let's get you set up. Install the WorkTracker desktop app on every computer that should track time — it runs quietly in the background and syncs with your admin panel in real time.",
+    "recommended": "Recommended for you",
+    "downloadFor": "Download for {{platform}}",
+    "downloadNow": "Download now",
+    "detected": "Detected",
+    "platforms": {
+      "macos": "macOS",
+      "windows": "Windows",
+      "linux": "Linux"
+    },
+    "installation": {
+      "title": "Installation steps",
+      "step1Title": "Download the installer",
+      "step1Text": "Pick the file for your operating system above.",
+      "step2Title": "Run and follow the prompts",
+      "step2Text": "The installer will walk you through setup in under a minute.",
+      "step3Title": "Sign in with this account",
+      "step3Text": "Open the app and sign in as {{email}}.",
+      "step3Fallback": "your admin email",
+      "step4Title": "You're done — tracking begins automatically",
+      "step4Text": "The app syncs silently with your admin panel whenever you're online."
+    },
+    "rollout": {
+      "title": "Rolling out to your team?",
+      "text": "Share the install link with teammates. They'll sign in with their own credentials and land in the right workspace automatically.",
+      "copy": "Copy"
+    },
+    "help": {
+      "title": "Need help?",
+      "text": "Read the setup guide or chat with support — most installations are live in under 3 minutes.",
+      "guide": "Setup guide",
+      "contact": "Contact support"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "New · Project-level insights 2.0",
+      "titleStart": "Time tracking that your team will",
+      "titleHighlight": "actually use",
+      "subtitle": "WorkTracker gives admins a single place to manage people, projects, and payouts — while your team stays focused on the work that moves the business.",
+      "cta": "Start 14-day free trial",
+      "secondary": "See how it works",
+      "noCard": "No credit card required",
+      "freeUsers": "Free for up to 3 users",
+      "cancelAny": "Cancel any time"
+    },
+    "trustedBy": "Trusted by 12,000+ teams"
+  }
+}

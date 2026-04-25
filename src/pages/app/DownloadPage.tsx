@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import Button from '@/components/ui/Button'
 import { useAuthStore } from '@/stores/auth.store'
 
@@ -75,6 +76,7 @@ function detectPlatform(): Platform {
 }
 
 export default function DownloadPage() {
+  const { t } = useTranslation()
   const user = useAuthStore((s) => s.user)
   const detected = useMemo(() => detectPlatform(), [])
   const primary = platforms.find((p) => p.id === detected)!
@@ -85,15 +87,13 @@ export default function DownloadPage() {
         <div className="max-w-xl">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-medium text-brand-700 ring-1 ring-inset ring-brand-100 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
-            You’re signed in
+            {t('download.signedInBadge')}
           </span>
           <h1 className="mt-2.5 text-xl font-semibold tracking-tight text-slate-900 sm:mt-3 sm:text-2xl md:text-3xl lg:text-4xl">
-            Welcome, {user?.full_name || 'admin'} 👋
+            {t('download.welcome', { name: user?.full_name || t('download.fallbackName') })}
           </h1>
           <p className="mt-2 text-sm text-slate-600 md:text-base">
-            Let’s get you set up. Install the WorkTracker desktop app on every
-            computer that should track time — it runs quietly in the background
-            and syncs with your admin panel in real time.
+            {t('download.subtitle')}
           </p>
         </div>
       </div>
@@ -114,10 +114,10 @@ export default function DownloadPage() {
             </div>
             <div className="min-w-0">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-brand-700 sm:text-xs">
-                Recommended for you
+                {t('download.recommended')}
               </p>
               <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl lg:text-3xl">
-                Download for {primary.name}
+                {t('download.downloadFor', { platform: primary.name })}
               </h2>
               <p className="mt-1 text-xs text-slate-500 sm:mt-1.5 sm:text-sm">
                 {primary.fileHint} · {primary.size}
@@ -141,7 +141,7 @@ export default function DownloadPage() {
               >
                 <path d="M12 3v13m0 0l-4.5-4.5M12 16l4.5-4.5M5 21h14" />
               </svg>
-              <span>Download now</span>
+              <span>{t('download.downloadNow')}</span>
             </a>
           </div>
         </div>
@@ -165,7 +165,7 @@ export default function DownloadPage() {
                 </div>
                 {isPrimary && (
                   <span className="rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-800">
-                    Detected
+                    {t('download.detected')}
                   </span>
                 )}
               </div>
@@ -177,7 +177,7 @@ export default function DownloadPage() {
               </p>
               <a href={p.url} download className="mt-4 sm:mt-5">
                 <Button variant="secondary" fullWidth>
-                  <span className="truncate">Download for {p.name}</span>
+                  <span className="truncate">{t('download.downloadFor', { platform: p.name })}</span>
                 </Button>
               </a>
             </div>
@@ -188,25 +188,27 @@ export default function DownloadPage() {
       <section className="mt-6 grid gap-4 sm:mt-8 sm:gap-5 lg:grid-cols-[1.2fr_1fr] lg:gap-6">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 lg:p-7">
           <h3 className="text-base font-semibold text-slate-900 sm:text-lg">
-            Installation steps
+            {t('download.installation.title')}
           </h3>
           <ol className="mt-4 space-y-4 sm:mt-5 sm:space-y-5">
             {[
               {
-                title: 'Download the installer',
-                text: 'Pick the file for your operating system above.',
+                title: t('download.installation.step1Title'),
+                text: t('download.installation.step1Text'),
               },
               {
-                title: 'Run and follow the prompts',
-                text: 'The installer will walk you through setup in under a minute.',
+                title: t('download.installation.step2Title'),
+                text: t('download.installation.step2Text'),
               },
               {
-                title: 'Sign in with this account',
-                text: `Open the app and sign in as ${user?.email ?? 'your admin email'}.`,
+                title: t('download.installation.step3Title'),
+                text: t('download.installation.step3Text', {
+                  email: user?.email ?? t('download.installation.step3Fallback'),
+                }),
               },
               {
-                title: 'You’re done — tracking begins automatically',
-                text: 'The app syncs silently with your admin panel whenever you’re online.',
+                title: t('download.installation.step4Title'),
+                text: t('download.installation.step4Text'),
               },
             ].map((s, i) => (
               <li key={s.title} className="flex gap-3 sm:gap-4">
@@ -227,11 +229,10 @@ export default function DownloadPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
           <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
             <h4 className="text-sm font-semibold text-slate-900">
-              Rolling out to your team?
+              {t('download.rollout.title')}
             </h4>
             <p className="mt-1 text-sm text-slate-600">
-              Share the install link with teammates. They’ll sign in with their
-              own credentials and land in the right workspace automatically.
+              {t('download.rollout.text')}
             </p>
             <div className="mt-4 flex items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5">
               <code className="min-w-0 flex-1 truncate text-xs text-slate-600">
@@ -246,26 +247,25 @@ export default function DownloadPage() {
                 }
                 className="shrink-0 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-700"
               >
-                Copy
+                {t('download.rollout.copy')}
               </button>
             </div>
           </div>
 
           <div className="rounded-2xl border border-brand-200 bg-brand-50 p-5 sm:p-6">
-            <h4 className="text-sm font-semibold text-brand-900">Need help?</h4>
+            <h4 className="text-sm font-semibold text-brand-900">{t('download.help.title')}</h4>
             <p className="mt-1 text-sm text-brand-900/80">
-              Read the setup guide or chat with support — most installations are
-              live in under 3 minutes.
+              {t('download.help.text')}
             </p>
             <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <a href="#" className="flex-1">
                 <Button variant="secondary" fullWidth>
-                  Setup guide
+                  {t('download.help.guide')}
                 </Button>
               </a>
               <a href="#" className="flex-1">
                 <Button variant="ghost" fullWidth>
-                  Contact support
+                  {t('download.help.contact')}
                 </Button>
               </a>
             </div>

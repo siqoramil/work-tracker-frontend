@@ -1,11 +1,13 @@
 import { useState, type FormEvent } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { trackingApi } from '@/services/tracking'
 import { extractApiError } from '@/services/auth'
 
 export default function SettingsPage() {
+  const { t } = useTranslation()
   const [formError, setFormError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
 
@@ -17,12 +19,12 @@ export default function SettingsPage() {
   const updateMutation = useMutation({
     mutationFn: trackingApi.updateSettings,
     onSuccess: () => {
-      setSuccess('Tracking settings saved.')
+      setSuccess(t('settings.saved'))
       setFormError(null)
       settingsQuery.refetch()
     },
     onError: (err) => {
-      setFormError(extractApiError(err, 'Unable to update tracking settings'))
+      setFormError(extractApiError(err, t('settings.errorFallback')))
       setSuccess(null)
     },
   })
@@ -36,14 +38,14 @@ export default function SettingsPage() {
     const raw = String(formData.get('activity_interval_minutes') ?? '')
     const minutes = Number.parseInt(raw, 10)
     if (!Number.isFinite(minutes) || minutes < 1) {
-      setFormError('Interval must be a positive number of minutes.')
+      setFormError(t('settings.intervalInvalid'))
       return
     }
     updateMutation.mutate({ activity_interval_minutes: minutes })
   }
 
   const loadError = settingsQuery.error
-    ? extractApiError(settingsQuery.error, 'Unable to load tracking settings')
+    ? extractApiError(settingsQuery.error, t('settings.loadErrorFallback'))
     : null
   const displayError = formError ?? loadError
 
@@ -51,13 +53,13 @@ export default function SettingsPage() {
     <div className="max-w-2xl">
       <div className="mb-6">
         <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-          Tracking
+          {t('settings.kicker')}
         </p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-          Company settings
+          {t('settings.title')}
         </h1>
         <p className="mt-2 text-sm text-slate-600">
-          These settings apply to every teammate tracked by the desktop app.
+          {t('settings.subtitle')}
         </p>
       </div>
 
@@ -80,7 +82,7 @@ export default function SettingsPage() {
 
       {settingsQuery.isPending ? (
         <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500">
-          Loading settings…
+          {t('settings.loading')}
         </div>
       ) : (
         <form
@@ -89,19 +91,19 @@ export default function SettingsPage() {
           className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6"
         >
           <Input
-            label="Activity interval (minutes)"
+            label={t('settings.interval')}
             name="activity_interval_minutes"
             type="number"
             min={1}
             max={120}
             defaultValue={settingsQuery.data?.activity_interval_minutes}
             required
-            hint="How often desktop clients roll up keyboard & mouse counts into an activity log entry."
+            hint={t('settings.intervalHint')}
           />
           {settingsQuery.data?.company_id && (
             <div>
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                Company ID
+                {t('settings.companyId')}
               </p>
               <code className="mt-1 block truncate rounded-md bg-slate-50 px-2 py-1.5 text-xs text-slate-600">
                 {settingsQuery.data.company_id}
@@ -109,7 +111,7 @@ export default function SettingsPage() {
             </div>
           )}
           <Button type="submit" loading={updateMutation.isPending}>
-            Save changes
+            {t('settings.save')}
           </Button>
         </form>
       )}

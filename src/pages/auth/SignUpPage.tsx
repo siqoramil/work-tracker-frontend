@@ -1,5 +1,6 @@
 import { useMemo, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { useAuthStore } from '@/stores/auth.store'
@@ -14,7 +15,6 @@ function scorePassword(password: string) {
   return score
 }
 
-const strengthLabels = ['Too weak', 'Weak', 'Okay', 'Good', 'Strong']
 const strengthColors = [
   'bg-slate-200',
   'bg-red-400',
@@ -24,6 +24,7 @@ const strengthColors = [
 ]
 
 export default function SignUpPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const signUp = useAuthStore((s) => s.signUp)
 
@@ -54,7 +55,7 @@ export default function SignUpPage() {
         replace: true,
       })
     } catch (err) {
-      setError(extractApiError(err, 'Unable to create account'))
+      setError(extractApiError(err, t('auth.signUp.errorFallback')))
     } finally {
       setLoading(false)
     }
@@ -64,13 +65,13 @@ export default function SignUpPage() {
     <div>
       <div className="mb-8">
         <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
-          Create your workspace
+          {t('auth.signUp.badge')}
         </span>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
-          Start tracking in minutes
+          {t('auth.signUp.title')}
         </h2>
         <p className="mt-2 text-sm text-slate-500">
-          Spin up your admin account — no card required for the first 14 days.
+          {t('auth.signUp.subtitle')}
         </p>
       </div>
 
@@ -86,9 +87,9 @@ export default function SignUpPage() {
       <form onSubmit={onSubmit} className="space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <Input
-            label="Full name"
+            label={t('auth.signUp.fullName')}
             autoComplete="name"
-            placeholder="Jane Cooper"
+            placeholder={t('auth.signUp.fullNamePlaceholder')}
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -107,9 +108,9 @@ export default function SignUpPage() {
             }
           />
           <Input
-            label="Company"
+            label={t('auth.signUp.company')}
             autoComplete="organization"
-            placeholder="Acme Inc."
+            placeholder={t('auth.signUp.companyPlaceholder')}
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
             required
@@ -128,10 +129,10 @@ export default function SignUpPage() {
           />
         </div>
         <Input
-          label="Work email"
+          label={t('auth.signUp.workEmail')}
           type="email"
           autoComplete="email"
-          placeholder="jane@company.com"
+          placeholder={t('auth.signUp.workEmailPlaceholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -151,10 +152,10 @@ export default function SignUpPage() {
         />
         <div>
           <Input
-            label="Password"
+            label={t('auth.signUp.password')}
             type="password"
             autoComplete="new-password"
-            placeholder="At least 8 characters"
+            placeholder={t('auth.signUp.passwordPlaceholder')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -183,9 +184,9 @@ export default function SignUpPage() {
             ))}
           </div>
           <p className="mt-1.5 text-xs text-slate-500">
-            Strength:{' '}
+            {t('auth.signUp.strength')}{' '}
             <span className="font-medium text-slate-700">
-              {strengthLabels[strength]}
+              {t(`auth.signUp.strengthLabels.${strength}` as const)}
             </span>
           </p>
         </div>
@@ -199,30 +200,30 @@ export default function SignUpPage() {
             required
           />
           <span>
-            I agree to the{' '}
+            {t('auth.signUp.agreeTo')}{' '}
             <a href="#" className="font-medium text-brand-700 hover:underline">
-              Terms of Service
+              {t('auth.signUp.termsOfService')}
             </a>{' '}
-            and{' '}
+            {t('auth.signUp.and')}{' '}
             <a href="#" className="font-medium text-brand-700 hover:underline">
-              Privacy Policy
+              {t('auth.signUp.privacyPolicy')}
             </a>
             .
           </span>
         </label>
 
         <Button type="submit" fullWidth loading={loading} disabled={!agreed}>
-          Create account
+          {t('auth.signUp.submit')}
         </Button>
       </form>
 
       <p className="mt-8 text-center text-sm text-slate-500">
-        Already have an account?{' '}
+        {t('auth.signUp.haveAccount')}{' '}
         <Link
           to="/auth/signin"
           className="font-semibold text-brand-700 hover:text-brand-800"
         >
-          Sign in
+          {t('auth.signUp.signInLink')}
         </Link>
       </p>
     </div>

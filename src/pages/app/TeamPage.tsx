@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { authService, extractApiError } from '@/services/auth'
@@ -10,6 +11,7 @@ type InvitedUser = {
 }
 
 export default function TeamPage() {
+  const { t } = useTranslation()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,7 +24,7 @@ export default function TeamPage() {
     setError(null)
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long.')
+      setError(t('team.tooShort'))
       return
     }
 
@@ -41,7 +43,7 @@ export default function TeamPage() {
       setEmail('')
       setPassword('')
     } catch (err) {
-      setError(extractApiError(err, 'Unable to send invite'))
+      setError(extractApiError(err, t('team.errorFallback')))
     } finally {
       setLoading(false)
     }
@@ -52,15 +54,13 @@ export default function TeamPage() {
       <section>
         <div className="mb-6">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-            Team
+            {t('team.kicker')}
           </p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            Invite teammates
+            {t('team.title')}
           </h1>
           <p className="mt-2 text-sm text-slate-600">
-            Create accounts for people on your team. Share the temporary
-            password with them — they can change it later from the reset
-            password page.
+            {t('team.subtitle')}
           </p>
         </div>
 
@@ -78,46 +78,46 @@ export default function TeamPage() {
           className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6"
         >
           <Input
-            label="Full name"
+            label={t('team.fullName')}
             autoComplete="off"
-            placeholder="Jane Cooper"
+            placeholder={t('team.fullNamePlaceholder')}
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
           />
           <Input
-            label="Work email"
+            label={t('team.workEmail')}
             type="email"
             autoComplete="off"
-            placeholder="jane@company.com"
+            placeholder={t('team.workEmailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <Input
-            label="Temporary password"
+            label={t('team.tempPassword')}
             type="password"
             autoComplete="new-password"
-            placeholder="At least 8 characters"
+            placeholder={t('team.tempPasswordPlaceholder')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            hint="You’ll share this with the teammate. They can reset it anytime."
+            hint={t('team.tempPasswordHint')}
           />
           <Button type="submit" loading={loading}>
-            Send invite
+            {t('team.send')}
           </Button>
         </form>
       </section>
 
       <aside className="rounded-2xl border border-slate-200 bg-white p-6">
         <h3 className="text-sm font-semibold text-slate-900">
-          Recently invited
+          {t('team.recentlyInvited')}
         </h3>
         {invited.length === 0 ? (
           <p className="mt-3 text-sm text-slate-500">
-            People you invite during this session will appear here.
+            {t('team.recentlyInvitedEmpty')}
           </p>
         ) : (
           <ul className="mt-4 divide-y divide-slate-100">

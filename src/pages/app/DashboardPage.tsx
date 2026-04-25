@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import Button from '@/components/ui/Button'
 import { trackingApi, type ScreenshotResponse } from '@/services/tracking'
 import { extractApiError } from '@/services/auth'
@@ -39,14 +40,14 @@ function formatTime(iso: string) {
   }
 }
 
-const PRESETS: { key: RangePreset; label: string }[] = [
-  { key: 'today', label: 'Today' },
-  { key: '7d', label: 'Last 7 days' },
-  { key: '30d', label: 'Last 30 days' },
-]
-
 export default function DashboardPage() {
+  const { t } = useTranslation()
   const user = useAuthStore((s) => s.user)
+  const PRESETS: { key: RangePreset; label: string }[] = [
+    { key: 'today', label: t('dashboard.presets.today') },
+    { key: '7d', label: t('dashboard.presets.last7Days') },
+    { key: '30d', label: t('dashboard.presets.last30Days') },
+  ]
   const [preset, setPreset] = useState<RangePreset>('today')
   const [lightbox, setLightbox] = useState<ScreenshotResponse | null>(null)
 
@@ -95,15 +96,15 @@ export default function DashboardPage() {
       <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-            Dashboard
+            {t('dashboard.kicker')}
           </p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
             {user?.full_name
-              ? `Welcome back, ${user.full_name.split(' ')[0]}`
-              : 'Welcome back'}
+              ? t('dashboard.welcomeName', { name: user.full_name.split(' ')[0] })
+              : t('dashboard.welcome')}
           </h1>
           <p className="mt-2 text-sm text-slate-600">
-            Your activity and screenshots captured by the desktop app.
+            {t('dashboard.subtitle')}
           </p>
         </div>
 
@@ -130,34 +131,34 @@ export default function DashboardPage() {
           role="alert"
           className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
         >
-          {extractApiError(error, 'Unable to load dashboard data')}
+          {extractApiError(error, t('dashboard.errorFallback'))}
         </div>
       )}
 
       <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          label="Keyboard events"
+          label={t('dashboard.stats.keyboardEvents')}
           value={totals.keyboard.toLocaleString()}
           icon={<KeyboardIcon />}
           tone="brand"
           loading={activityQuery.isLoading}
         />
         <StatCard
-          label="Mouse events"
+          label={t('dashboard.stats.mouseEvents')}
           value={totals.mouse.toLocaleString()}
           icon={<MouseIcon />}
           tone="violet"
           loading={activityQuery.isLoading}
         />
         <StatCard
-          label="Avg. activity"
+          label={t('dashboard.stats.avgActivity')}
           value={`${avgActivity}%`}
           icon={<ActivityIcon />}
           tone="emerald"
           loading={activityQuery.isLoading}
         />
         <StatCard
-          label="Screenshots"
+          label={t('dashboard.stats.screenshots')}
           value={screenshots.length.toLocaleString()}
           icon={<CameraIcon />}
           tone="amber"
@@ -170,23 +171,23 @@ export default function DashboardPage() {
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
             <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
               <h3 className="text-sm font-semibold text-slate-900">
-                Recent intervals
+                {t('dashboard.recentIntervals')}
               </h3>
               <Link
                 to="/app/activity"
                 className="text-xs font-semibold text-brand-700 hover:text-brand-800"
               >
-                View all →
+                {t('dashboard.viewAll')}
               </Link>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-slate-100 text-sm">
                 <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
                   <tr>
-                    <th className="px-5 py-3">Interval</th>
-                    <th className="px-5 py-3 text-right">Keyboard</th>
-                    <th className="px-5 py-3 text-right">Mouse</th>
-                    <th className="px-5 py-3 text-right">Activity</th>
+                    <th className="px-5 py-3">{t('dashboard.table.interval')}</th>
+                    <th className="px-5 py-3 text-right">{t('dashboard.table.keyboard')}</th>
+                    <th className="px-5 py-3 text-right">{t('dashboard.table.mouse')}</th>
+                    <th className="px-5 py-3 text-right">{t('dashboard.table.activity')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -196,7 +197,7 @@ export default function DashboardPage() {
                         colSpan={4}
                         className="px-5 py-10 text-center text-sm text-slate-500"
                       >
-                        Loading…
+                        {t('dashboard.table.loading')}
                       </td>
                     </tr>
                   ) : activity.length === 0 ? (
@@ -205,7 +206,7 @@ export default function DashboardPage() {
                         colSpan={4}
                         className="px-5 py-10 text-center text-sm text-slate-500"
                       >
-                        No activity recorded for this range yet.
+                        {t('dashboard.table.empty')}
                       </td>
                     </tr>
                   ) : (
@@ -251,23 +252,23 @@ export default function DashboardPage() {
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
             <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
               <h3 className="text-sm font-semibold text-slate-900">
-                Latest screenshots
+                {t('dashboard.latestScreenshots')}
               </h3>
               <Link
                 to="/app/screenshots"
                 className="text-xs font-semibold text-brand-700 hover:text-brand-800"
               >
-                View all →
+                {t('dashboard.viewAll')}
               </Link>
             </div>
             <div className="p-3">
               {screenshotsQuery.isLoading ? (
                 <p className="px-2 py-8 text-center text-sm text-slate-500">
-                  Loading…
+                  {t('dashboard.table.loading')}
                 </p>
               ) : recentScreenshots.length === 0 ? (
                 <p className="px-2 py-8 text-center text-sm text-slate-500">
-                  No screenshots yet.
+                  {t('dashboard.noScreenshots')}
                 </p>
               ) : (
                 <div className="grid grid-cols-2 gap-2">
@@ -303,14 +304,14 @@ export default function DashboardPage() {
 
           <div className="mt-4 rounded-2xl border border-dashed border-slate-200 bg-white p-5">
             <h4 className="text-sm font-semibold text-slate-900">
-              Desktop app not installed?
+              {t('dashboard.desktopNotInstalled')}
             </h4>
             <p className="mt-1 text-xs text-slate-500">
-              Download WorkTracker desktop to start tracking automatically.
+              {t('dashboard.desktopHint')}
             </p>
             <Link to="/app/download" className="mt-3 block">
               <Button variant="secondary" fullWidth>
-                Download desktop app
+                {t('dashboard.downloadDesktop')}
               </Button>
             </Link>
           </div>
@@ -336,7 +337,7 @@ export default function DashboardPage() {
                 type="button"
                 onClick={() => setLightbox(null)}
                 className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100"
-                aria-label="Close"
+                aria-label={t('dashboard.close')}
               >
                 <svg
                   viewBox="0 0 24 24"

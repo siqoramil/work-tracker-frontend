@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { trackingApi } from '@/services/tracking'
@@ -84,6 +85,7 @@ function SortableHeader({
 }
 
 export default function ActivityPage() {
+  const { t } = useTranslation()
   const defaults = useMemo(() => computeDefaultRange(), [])
 
   const [draft, setDraft] = useState<Filters>({
@@ -187,13 +189,13 @@ export default function ActivityPage() {
     <div>
       <div className="mb-6">
         <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-          Tracking
+          {t('activity.kicker')}
         </p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-          Activity logs
+          {t('activity.title')}
         </h1>
         <p className="mt-2 text-sm text-slate-600">
-          Review keyboard and mouse activity captured by the desktop app.
+          {t('activity.subtitle')}
         </p>
       </div>
 
@@ -207,20 +209,20 @@ export default function ActivityPage() {
       >
         <div className="sm:col-span-2 lg:col-span-1">
           <Input
-            label="User ID (optional)"
-            placeholder="Leave blank for all users"
+            label={t('activity.filters.userId')}
+            placeholder={t('activity.filters.userIdPlaceholder')}
             value={draft.userId}
             onChange={(e) => setDraft({ ...draft, userId: e.target.value })}
           />
         </div>
         <Input
-          label="From"
+          label={t('activity.filters.from')}
           type="date"
           value={draft.dateFrom}
           onChange={(e) => setDraft({ ...draft, dateFrom: e.target.value })}
         />
         <Input
-          label="To"
+          label={t('activity.filters.to')}
           type="date"
           value={draft.dateTo}
           onChange={(e) => setDraft({ ...draft, dateTo: e.target.value })}
@@ -230,7 +232,7 @@ export default function ActivityPage() {
           loading={isFetching}
           className="sm:col-span-2 lg:col-span-1 w-full sm:w-auto"
         >
-          Apply
+          {t('activity.filters.apply')}
         </Button>
       </form>
 
@@ -239,15 +241,15 @@ export default function ActivityPage() {
           role="alert"
           className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
         >
-          {extractApiError(error, 'Unable to load activity logs')}
+          {extractApiError(error, t('activity.errorFallback'))}
         </div>
       )}
 
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
         {[
-          { label: 'Entries', value: rows.length.toString() },
-          { label: 'Keyboard events', value: totals.keyboard.toLocaleString() },
-          { label: 'Mouse events', value: totals.mouse.toLocaleString() },
+          { label: t('activity.stats.entries'), value: rows.length.toString() },
+          { label: t('activity.stats.keyboardEvents'), value: totals.keyboard.toLocaleString() },
+          { label: t('activity.stats.mouseEvents'), value: totals.mouse.toLocaleString() },
         ].map((c) => (
           <div
             key={c.label}
@@ -266,21 +268,21 @@ export default function ActivityPage() {
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3">
           <div className="flex flex-col">
-            <h3 className="text-sm font-semibold text-slate-900">Entries</h3>
+            <h3 className="text-sm font-semibold text-slate-900">{t('activity.table.entries')}</h3>
             <span className="text-[11px] text-slate-400">
-              Times shown in your local timezone ({localTz})
+              {t('activity.table.timezoneNote', { tz: localTz })}
             </span>
           </div>
           <span className="text-xs text-slate-500">
-            Showing{' '}
+            {t('activity.table.showing')}{' '}
             <span className="font-semibold text-slate-900">
               {visibleRows.length}
             </span>{' '}
-            of{' '}
+            {t('activity.table.of')}{' '}
             <span className="font-semibold text-slate-900">
               {sortedRows.length}
             </span>{' '}
-            · Avg. activity{' '}
+            · {t('activity.table.avgActivity')}{' '}
             <span className="font-semibold text-slate-900">{avgActivity}%</span>
           </span>
         </div>
@@ -290,21 +292,21 @@ export default function ActivityPage() {
               <tr>
                 <th className="w-12 px-5 py-3 text-right">#</th>
                 <SortableHeader
-                  label="Interval start"
+                  label={t('activity.table.intervalStart')}
                   sortKey="interval_start"
                   sortBy={sortBy}
                   sortDir={sortDir}
                   onClick={toggleSort}
                 />
                 <SortableHeader
-                  label="User"
+                  label={t('activity.table.user')}
                   sortKey="user_id"
                   sortBy={sortBy}
                   sortDir={sortDir}
                   onClick={toggleSort}
                 />
                 <SortableHeader
-                  label="Keyboard"
+                  label={t('activity.table.keyboard')}
                   sortKey="keyboard_count"
                   sortBy={sortBy}
                   sortDir={sortDir}
@@ -312,7 +314,7 @@ export default function ActivityPage() {
                   align="right"
                 />
                 <SortableHeader
-                  label="Mouse"
+                  label={t('activity.table.mouse')}
                   sortKey="mouse_count"
                   sortBy={sortBy}
                   sortDir={sortDir}
@@ -320,7 +322,7 @@ export default function ActivityPage() {
                   align="right"
                 />
                 <SortableHeader
-                  label="Activity"
+                  label={t('activity.table.activity')}
                   sortKey="activity_percent"
                   sortBy={sortBy}
                   sortDir={sortDir}
@@ -336,7 +338,7 @@ export default function ActivityPage() {
                     colSpan={6}
                     className="px-5 py-10 text-center text-sm text-slate-500"
                   >
-                    Loading…
+                    {t('activity.table.loading')}
                   </td>
                 </tr>
               ) : sortedRows.length === 0 ? (
@@ -345,7 +347,7 @@ export default function ActivityPage() {
                     colSpan={6}
                     className="px-5 py-10 text-center text-sm text-slate-500"
                   >
-                    No activity found for the selected filters.
+                    {t('activity.empty')}
                   </td>
                 </tr>
               ) : (
@@ -394,7 +396,7 @@ export default function ActivityPage() {
                       >
                         <span className="inline-flex items-center gap-2">
                           <span className="h-3 w-3 animate-spin rounded-full border-2 border-slate-200 border-t-brand-500" />
-                          Loading more…
+                          {t('activity.table.loadingMore')}
                         </span>
                       </td>
                     </tr>
@@ -405,7 +407,7 @@ export default function ActivityPage() {
                         colSpan={6}
                         className="px-5 py-4 text-center text-xs text-slate-400"
                       >
-                        End of results · {sortedRows.length} entries
+                        {t('activity.table.endOfResults', { count: sortedRows.length })}
                       </td>
                     </tr>
                   )}

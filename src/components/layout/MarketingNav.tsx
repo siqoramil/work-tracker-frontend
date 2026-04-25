@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Logo from '@/components/ui/Logo'
 import Button from '@/components/ui/Button'
-
-const links = [
-  { label: 'Features', href: '#features' },
-  { label: 'How it works', href: '#how' },
-  { label: 'Customers', href: '#customers' },
-  { label: 'Pricing', href: '#pricing' },
-]
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 
 export default function MarketingNav() {
+  const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  const links = [
+    { label: t('marketingNav.links.features'), href: '#features' },
+    { label: t('marketingNav.links.howItWorks'), href: '#how' },
+    { label: t('marketingNav.links.customers'), href: '#customers' },
+    { label: t('marketingNav.links.pricing'), href: '#pricing' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -47,20 +50,21 @@ export default function MarketingNav() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <LanguageSwitcher />
           <Link
             to="/auth/signin"
             className="rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-700 hover:text-brand-700"
           >
-            Sign in
+            {t('common.signIn')}
           </Link>
           <Link to="/auth/signup">
-            <Button>Start free trial</Button>
+            <Button>{t('common.startFreeTrial')}</Button>
           </Link>
         </div>
 
         <button
           type="button"
-          aria-label="Toggle menu"
+          aria-label={t('common.toggleMenu')}
           onClick={() => setOpen((v) => !v)}
           className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 lg:hidden"
         >
@@ -94,14 +98,17 @@ export default function MarketingNav() {
                 {l.label}
               </a>
             ))}
+            <div className="mt-2 flex">
+              <LanguageSwitcher />
+            </div>
             <div className="mt-2 flex gap-2">
               <Link to="/auth/signin" className="flex-1">
                 <Button variant="secondary" fullWidth>
-                  Sign in
+                  {t('common.signIn')}
                 </Button>
               </Link>
               <Link to="/auth/signup" className="flex-1">
-                <Button fullWidth>Start free</Button>
+                <Button fullWidth>{t('common.startFree')}</Button>
               </Link>
             </div>
           </div>

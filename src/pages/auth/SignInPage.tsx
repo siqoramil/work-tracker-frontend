@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { useAuthStore } from '@/stores/auth.store'
@@ -8,6 +9,7 @@ import { extractApiError } from '@/services/auth'
 type LocationState = { from?: { pathname?: string } } | null
 
 export default function SignInPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const signIn = useAuthStore((s) => s.signIn)
@@ -28,7 +30,7 @@ export default function SignInPage() {
       const redirectTo = state?.from?.pathname ?? '/app/activity'
       navigate(redirectTo, { replace: true })
     } catch (err) {
-      setError(extractApiError(err, 'Unable to sign in'))
+      setError(extractApiError(err, t('auth.signIn.errorFallback')))
     } finally {
       setLoading(false)
     }
@@ -38,13 +40,13 @@ export default function SignInPage() {
     <div>
       <div className="mb-8">
         <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
-          Admin portal
+          {t('auth.signIn.badge')}
         </span>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
-          Welcome back
+          {t('auth.signIn.title')}
         </h2>
         <p className="mt-2 text-sm text-slate-500">
-          Sign in to manage your workspace, team, and projects.
+          {t('auth.signIn.subtitle')}
         </p>
       </div>
 
@@ -59,10 +61,10 @@ export default function SignInPage() {
 
       <form onSubmit={onSubmit} className="space-y-5">
         <Input
-          label="Email"
+          label={t('auth.signIn.email')}
           type="email"
           autoComplete="email"
-          placeholder="you@company.com"
+          placeholder={t('auth.signIn.emailPlaceholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -81,10 +83,10 @@ export default function SignInPage() {
           }
         />
         <Input
-          label="Password"
+          label={t('auth.signIn.password')}
           type="password"
           autoComplete="current-password"
-          placeholder="Enter your password"
+          placeholder={t('auth.signIn.passwordPlaceholder')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -111,28 +113,28 @@ export default function SignInPage() {
               onChange={(e) => setRemember(e.target.checked)}
               className="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
             />
-            Keep me signed in
+            {t('auth.signIn.rememberMe')}
           </label>
           <Link
             to="/auth/reset-password"
             className="font-medium text-brand-700 hover:text-brand-800"
           >
-            Forgot password?
+            {t('auth.signIn.forgotPassword')}
           </Link>
         </div>
 
         <Button type="submit" fullWidth loading={loading}>
-          Sign in
+          {t('auth.signIn.submit')}
         </Button>
       </form>
 
       <p className="mt-8 text-center text-sm text-slate-500">
-        Don’t have an account?{' '}
+        {t('auth.signIn.noAccount')}{' '}
         <Link
           to="/auth/signup"
           className="font-semibold text-brand-700 hover:text-brand-800"
         >
-          Create one
+          {t('auth.signIn.createOne')}
         </Link>
       </p>
     </div>

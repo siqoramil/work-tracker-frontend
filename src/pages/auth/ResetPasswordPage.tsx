@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { authService, extractApiError } from '@/services/auth'
@@ -7,6 +8,7 @@ import { authService, extractApiError } from '@/services/auth'
 type Step = 'request' | 'confirm' | 'done'
 
 export default function ResetPasswordPage() {
+  const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const prefillToken = searchParams.get('token')?.trim() || ''
   const prefillEmail = searchParams.get('email')?.trim() || ''
@@ -27,7 +29,7 @@ export default function ResetPasswordPage() {
       await authService.forgotPassword({ email: email.trim() })
       setStep('confirm')
     } catch (err) {
-      setError(extractApiError(err, 'Unable to send reset code'))
+      setError(extractApiError(err, t('auth.resetPassword.request.errorFallback')))
     } finally {
       setLoading(false)
     }
@@ -39,15 +41,15 @@ export default function ResetPasswordPage() {
 
     const trimmedCode = code.trim()
     if (!/^\d{6}$/.test(trimmedCode)) {
-      setError('Enter the 6-digit code from your email.')
+      setError(t('auth.resetPassword.confirm.invalidCode'))
       return
     }
     if (newPassword.length < 8) {
-      setError('Password must be at least 8 characters long.')
+      setError(t('auth.resetPassword.confirm.tooShort'))
       return
     }
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match.')
+      setError(t('auth.resetPassword.confirm.noMatch'))
       return
     }
 
@@ -60,7 +62,7 @@ export default function ResetPasswordPage() {
       })
       setStep('done')
     } catch (err) {
-      setError(extractApiError(err, 'Unable to reset password'))
+      setError(extractApiError(err, t('auth.resetPassword.confirm.errorFallback')))
     } finally {
       setLoading(false)
     }
@@ -84,35 +86,32 @@ export default function ResetPasswordPage() {
         >
           <path d="M15 18l-6-6 6-6" />
         </svg>
-        Back to sign in
+        {t('auth.resetPassword.back')}
       </Link>
 
       <StepIndicator step={step} />
 
       <div className="mb-8">
         <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
-          Account recovery
+          {t('auth.resetPassword.badge')}
         </span>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
-          {step === 'request' && 'Reset your password'}
-          {step === 'confirm' && 'Enter the 6-digit code'}
-          {step === 'done' && 'Password updated'}
+          {step === 'request' && t('auth.resetPassword.request.title')}
+          {step === 'confirm' && t('auth.resetPassword.confirm.title')}
+          {step === 'done' && t('auth.resetPassword.done.title')}
         </h2>
         <p className="mt-2 text-sm text-slate-500">
-          {step === 'request' &&
-            'Enter the email linked to your account — we’ll send you a 6-digit code.'}
+          {step === 'request' && t('auth.resetPassword.request.subtitle')}
           {step === 'confirm' && (
             <>
-              We sent a 6-digit code to{' '}
+              {t('auth.resetPassword.confirm.subtitlePrefix')}{' '}
               <span className="font-medium text-slate-900">
-                {email || 'your email'}
+                {email || t('auth.resetPassword.confirm.yourEmail')}
               </span>
-              . Enter it below with your new password. The code is valid for 30
-              minutes.
+              {t('auth.resetPassword.confirm.subtitleSuffix')}
             </>
           )}
-          {step === 'done' &&
-            'Your password has been updated. Open the WorkTracker desktop app and sign in with your new password.'}
+          {step === 'done' && t('auth.resetPassword.done.subtitle')}
         </p>
       </div>
 
@@ -128,10 +127,10 @@ export default function ResetPasswordPage() {
       {step === 'request' && (
         <form onSubmit={onRequest} className="space-y-5">
           <Input
-            label="Email"
+            label={t('auth.resetPassword.request.email')}
             type="email"
             autoComplete="email"
-            placeholder="you@company.com"
+            placeholder={t('auth.resetPassword.request.emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -150,16 +149,16 @@ export default function ResetPasswordPage() {
             }
           />
           <Button type="submit" fullWidth loading={loading}>
-            Send 6-digit code
+            {t('auth.resetPassword.request.submit')}
           </Button>
           <p className="text-center text-xs text-slate-500">
-            Already have a code?{' '}
+            {t('auth.resetPassword.request.haveCode')}{' '}
             <button
               type="button"
               onClick={() => setStep('confirm')}
               className="font-semibold text-brand-700 hover:text-brand-800"
             >
-              Enter it here
+              {t('auth.resetPassword.request.enterHere')}
             </button>
           </p>
         </form>
@@ -168,25 +167,25 @@ export default function ResetPasswordPage() {
       {step === 'confirm' && (
         <form onSubmit={onConfirm} className="space-y-5">
           <Input
-            label="6-digit code"
+            label={t('auth.resetPassword.confirm.code')}
             inputMode="numeric"
             autoComplete="one-time-code"
             pattern="\d{6}"
             maxLength={6}
-            placeholder="123456"
+            placeholder={t('auth.resetPassword.confirm.codePlaceholder')}
             value={code}
             onChange={(e) =>
               setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
             }
             required
             className="text-center text-lg font-semibold tracking-[0.4em]"
-            hint="Check your email for the code we just sent."
+            hint={t('auth.resetPassword.confirm.codeHint')}
           />
           <Input
-            label="New password"
+            label={t('auth.resetPassword.confirm.newPassword')}
             type="password"
             autoComplete="new-password"
-            placeholder="At least 8 characters"
+            placeholder={t('auth.resetPassword.confirm.newPasswordPlaceholder')}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
@@ -206,10 +205,10 @@ export default function ResetPasswordPage() {
             }
           />
           <Input
-            label="Confirm new password"
+            label={t('auth.resetPassword.confirm.confirmPassword')}
             type="password"
             autoComplete="new-password"
-            placeholder="Re-enter your new password"
+            placeholder={t('auth.resetPassword.confirm.confirmPasswordPlaceholder')}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
@@ -229,10 +228,10 @@ export default function ResetPasswordPage() {
             }
           />
           <Button type="submit" fullWidth loading={loading}>
-            Update password
+            {t('auth.resetPassword.confirm.submit')}
           </Button>
           <p className="text-center text-xs text-slate-500">
-            Didn’t get the code?{' '}
+            {t('auth.resetPassword.confirm.noCode')}{' '}
             <button
               type="button"
               onClick={() => {
@@ -241,7 +240,7 @@ export default function ResetPasswordPage() {
               }}
               className="font-semibold text-brand-700 hover:text-brand-800"
             >
-              Send a new one
+              {t('auth.resetPassword.confirm.sendNew')}
             </button>
           </p>
         </form>
@@ -267,18 +266,17 @@ export default function ResetPasswordPage() {
               </span>
               <div>
                 <p className="text-sm font-semibold text-slate-900">
-                  You’re all set
+                  {t('auth.resetPassword.done.panelTitle')}
                 </p>
                 <p className="mt-1 text-sm text-slate-600">
-                  Open the WorkTracker desktop app and sign in with your email
-                  and the new password.
+                  {t('auth.resetPassword.done.panelMessage')}
                 </p>
               </div>
             </div>
           </div>
           <Link to="/auth/signin" className="block">
             <Button variant="secondary" fullWidth>
-              Go to web sign in
+              {t('auth.resetPassword.done.goToSignIn')}
             </Button>
           </Link>
         </div>
@@ -286,12 +284,12 @@ export default function ResetPasswordPage() {
 
       {step !== 'done' && (
         <p className="mt-8 text-center text-sm text-slate-500">
-          Remembered it?{' '}
+          {t('auth.resetPassword.remembered')}{' '}
           <Link
             to="/auth/signin"
             className="font-semibold text-brand-700 hover:text-brand-800"
           >
-            Sign in instead
+            {t('auth.resetPassword.signInInstead')}
           </Link>
         </p>
       )}
@@ -300,10 +298,11 @@ export default function ResetPasswordPage() {
 }
 
 function StepIndicator({ step }: { step: Step }) {
+  const { t } = useTranslation()
   const items: { key: Step; label: string }[] = [
-    { key: 'request', label: 'Email' },
-    { key: 'confirm', label: 'Code & password' },
-    { key: 'done', label: 'Done' },
+    { key: 'request', label: t('auth.resetPassword.stepLabels.email') },
+    { key: 'confirm', label: t('auth.resetPassword.stepLabels.codePassword') },
+    { key: 'done', label: t('auth.resetPassword.stepLabels.done') },
   ]
   const activeIndex = items.findIndex((i) => i.key === step)
 

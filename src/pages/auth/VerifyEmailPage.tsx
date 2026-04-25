@@ -1,11 +1,13 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { useAuthStore } from '@/stores/auth.store'
 import { extractApiError } from '@/services/auth'
 
 export default function VerifyEmailPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const verifyEmailCode = useAuthStore((s) => s.verifyEmailCode)
@@ -20,12 +22,12 @@ export default function VerifyEmailPage() {
     setError(null)
 
     if (!email) {
-      setError('Missing email — please sign up again.')
+      setError(t('auth.verifyEmail.missingEmail'))
       return
     }
     const trimmedCode = code.trim()
     if (!/^\d{6}$/.test(trimmedCode)) {
-      setError('Enter the 6-digit code from your email.')
+      setError(t('auth.verifyEmail.invalidCode'))
       return
     }
 
@@ -34,7 +36,7 @@ export default function VerifyEmailPage() {
       await verifyEmailCode({ email, code: trimmedCode })
       navigate('/app/activity', { replace: true })
     } catch (err) {
-      setError(extractApiError(err, 'Invalid or expired code.'))
+      setError(extractApiError(err, t('auth.verifyEmail.errorFallback')))
     } finally {
       setLoading(false)
     }
@@ -58,23 +60,22 @@ export default function VerifyEmailPage() {
         >
           <path d="M15 18l-6-6 6-6" />
         </svg>
-        Back to sign up
+        {t('auth.verifyEmail.back')}
       </Link>
 
       <div className="mb-8">
         <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
-          Email verification
+          {t('auth.verifyEmail.badge')}
         </span>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
-          Enter the 6-digit code
+          {t('auth.verifyEmail.title')}
         </h2>
         <p className="mt-2 text-sm text-slate-500">
-          We sent a 6-digit code to{' '}
+          {t('auth.verifyEmail.subtitlePrefix')}{' '}
           <span className="font-medium text-slate-900">
-            {email || 'your email'}
+            {email || t('auth.verifyEmail.yourEmail')}
           </span>
-          . Enter it below to confirm your address and finish creating your
-          workspace.
+          {t('auth.verifyEmail.subtitleSuffix')}
         </p>
       </div>
 
@@ -89,7 +90,7 @@ export default function VerifyEmailPage() {
 
       <form onSubmit={onSubmit} className="space-y-5">
         <Input
-          label="Email"
+          label={t('auth.verifyEmail.email')}
           type="email"
           value={email}
           readOnly
@@ -110,32 +111,32 @@ export default function VerifyEmailPage() {
           }
         />
         <Input
-          label="6-digit code"
+          label={t('auth.verifyEmail.code')}
           inputMode="numeric"
           autoComplete="one-time-code"
           pattern="\d{6}"
           maxLength={6}
-          placeholder="123456"
+          placeholder={t('auth.verifyEmail.codePlaceholder')}
           value={code}
           onChange={(e) =>
             setCode(e.target.value.replace(/\D/g, '').slice(0, 6))
           }
           required
           className="text-center text-lg font-semibold tracking-[0.4em]"
-          hint="Check your email for the code we just sent."
+          hint={t('auth.verifyEmail.codeHint')}
         />
         <Button type="submit" fullWidth loading={loading}>
-          Verify and continue
+          {t('auth.verifyEmail.submit')}
         </Button>
       </form>
 
       <p className="mt-8 text-center text-sm text-slate-500">
-        Wrong email?{' '}
+        {t('auth.verifyEmail.wrongEmail')}{' '}
         <Link
           to="/auth/signup"
           className="font-semibold text-brand-700 hover:text-brand-800"
         >
-          Sign up again
+          {t('auth.verifyEmail.signUpAgain')}
         </Link>
       </p>
     </div>
