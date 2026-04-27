@@ -1,9 +1,9 @@
-'use client'
+import ClientShell from './ClientShell'
 
-import dynamic from 'next/dynamic'
-
-const ClientApp = dynamic(() => import('@/ClientApp'), { ssr: false })
+export function generateStaticParams() {
+  return [{ slug: [] }]
+}
 
 export default function CatchAllPage() {
-  return <ClientApp />
+  return <ClientShell />
 }

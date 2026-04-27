@@ -5,7 +5,14 @@ import prettier from 'eslint-plugin-prettier/recommended'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['.next', 'out', 'build', 'dist', 'node_modules']),
+  globalIgnores([
+    '.next',
+    'out',
+    'build',
+    'dist',
+    'node_modules',
+    'next-env.d.ts',
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

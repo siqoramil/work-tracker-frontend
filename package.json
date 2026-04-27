@@ -2,6 +2,7 @@
   "name": "work-tracker-web",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "next dev -p 8080",
     "build": "next build",
