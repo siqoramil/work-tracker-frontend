@@ -1,10 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+'use client'
+
+import { StrictMode, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import './index.css'
-import './i18n'
-import App from './App.tsx'
+import App from '@/App'
+import '@/i18n'
 import { bootstrapAuth } from '@/api/http'
 import { useAuthStore } from '@/stores/auth.store'
 
@@ -18,21 +18,32 @@ const queryClient = new QueryClient({
   },
 })
 
-async function bootstrap() {
-  const newToken = await bootstrapAuth()
-  if (newToken) {
-    void useAuthStore.getState().refreshUser()
-  }
+export default function ClientApp() {
+  const [ready, setReady] = useState(false)
 
-  createRoot(document.getElementById('root')!).render(
+  useEffect(() => {
+    let cancelled = false
+    bootstrapAuth().then((newToken) => {
+      if (cancelled) return
+      if (newToken) {
+        void useAuthStore.getState().refreshUser()
+      }
+      setReady(true)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  if (!ready) return null
+
+  return (
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </QueryClientProvider>
-    </StrictMode>,
+    </StrictMode>
   )
 }
-
-void bootstrap()
