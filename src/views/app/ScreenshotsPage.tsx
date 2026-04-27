@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import Input from '@/components/ui/Input'
+import DateField from '@/components/ui/DateField'
 import Button from '@/components/ui/Button'
 import { trackingApi, type ScreenshotResponse } from '@/services/tracking'
 import { extractApiError } from '@/services/auth'
@@ -87,17 +88,17 @@ export default function ScreenshotsPage() {
             onChange={(e) => setDraft({ ...draft, userId: e.target.value })}
           />
         </div>
-        <Input
+        <DateField
           label={t('screenshots.filters.from')}
-          type="date"
           value={draft.dateFrom}
-          onChange={(e) => setDraft({ ...draft, dateFrom: e.target.value })}
+          max={draft.dateTo || undefined}
+          onChange={(v) => setDraft({ ...draft, dateFrom: v })}
         />
-        <Input
+        <DateField
           label={t('screenshots.filters.to')}
-          type="date"
           value={draft.dateTo}
-          onChange={(e) => setDraft({ ...draft, dateTo: e.target.value })}
+          min={draft.dateFrom || undefined}
+          onChange={(v) => setDraft({ ...draft, dateTo: v })}
         />
         <Button
           type="submit"

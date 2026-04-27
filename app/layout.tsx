@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '@/index.css'
 
 export const metadata: Metadata = {
-  title: 'work-tracker-web',
+  title: 'Work Tracker',
   icons: {
     icon: { url: '/favicon.svg', type: 'image/svg+xml' },
   },
