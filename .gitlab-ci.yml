@@ -5,6 +5,7 @@ stages:
 variables:
   NODE_IMAGE: node:22-alpine
   DEPLOY_BRANCH: 'main'
+  NEXT_PUBLIC_API_BASE_URL: 'https://api.worktracker.ovrin.uz'
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
