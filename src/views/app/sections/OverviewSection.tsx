@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
@@ -40,7 +42,7 @@ function formatTime(iso: string) {
   }
 }
 
-export default function DashboardPage() {
+export default function OverviewSection() {
   const { t } = useTranslation()
   const user = useAuthStore((s) => s.user)
   const PRESETS: { key: RangePreset; label: string }[] = [
@@ -93,24 +95,15 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-            {t('dashboard.kicker')}
-          </p>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            {user?.full_name
-              ? t('dashboard.welcomeName', {
-                  name: user.full_name.split(' ')[0],
-                })
-              : t('dashboard.welcome')}
-          </h1>
-          <p className="mt-2 text-sm text-slate-600">
-            {t('dashboard.subtitle')}
-          </p>
-        </div>
-
-        <div className="inline-flex w-full max-w-full overflow-x-auto rounded-xl border border-slate-200 bg-white p-1 sm:w-auto">
+      <div className="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+          {user?.full_name
+            ? t('dashboard.welcomeName', {
+                name: user.full_name.split(' ')[0],
+              })
+            : t('dashboard.welcome')}
+        </h2>
+        <div className="inline-flex w-full max-w-full overflow-x-auto rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-700 dark:bg-slate-900 sm:w-auto">
           {PRESETS.map((p) => (
             <button
               key={p.key}
@@ -118,8 +111,8 @@ export default function DashboardPage() {
               onClick={() => setPreset(p.key)}
               className={`shrink-0 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                 preset === p.key
-                  ? 'bg-brand-600 text-white'
-                  : 'text-slate-600 hover:bg-slate-50'
+                  ? 'bg-brand-600 text-white dark:bg-brand-500'
+                  : 'text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800'
               }`}
             >
               {p.label}
@@ -131,7 +124,7 @@ export default function DashboardPage() {
       {error && (
         <div
           role="alert"
-          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
         >
           {extractApiError(error, t('dashboard.errorFallback'))}
         </div>
@@ -170,21 +163,15 @@ export default function DashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
-              <h3 className="text-sm font-semibold text-slate-900">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3 dark:border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {t('dashboard.recentIntervals')}
               </h3>
-              <Link
-                to="/app/activity"
-                className="text-xs font-semibold text-brand-700 hover:text-brand-800"
-              >
-                {t('dashboard.viewAll')}
-              </Link>
             </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-100 text-sm">
-                <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <table className="min-w-full divide-y divide-slate-100 text-sm dark:divide-slate-800">
+                <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-900/60 dark:text-slate-400">
                   <tr>
                     <th className="px-5 py-3">
                       {t('dashboard.table.interval')}
@@ -200,12 +187,12 @@ export default function DashboardPage() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {activityQuery.isLoading ? (
                     <tr>
                       <td
                         colSpan={4}
-                        className="px-5 py-10 text-center text-sm text-slate-500"
+                        className="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400"
                       >
                         {t('dashboard.table.loading')}
                       </td>
@@ -214,7 +201,7 @@ export default function DashboardPage() {
                     <tr>
                       <td
                         colSpan={4}
-                        className="px-5 py-10 text-center text-sm text-slate-500"
+                        className="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400"
                       >
                         {t('dashboard.table.empty')}
                       </td>
@@ -222,21 +209,21 @@ export default function DashboardPage() {
                   ) : (
                     activity.slice(0, 10).map((r) => (
                       <tr key={r.id}>
-                        <td className="px-5 py-3 text-slate-700">
+                        <td className="px-5 py-3 text-slate-700 dark:text-slate-300">
                           {formatTime(r.interval_start)}
-                          <span className="ml-1 text-xs text-slate-400">
+                          <span className="ml-1 text-xs text-slate-400 dark:text-slate-500">
                             {new Date(r.interval_start).toLocaleDateString()}
                           </span>
                         </td>
-                        <td className="px-5 py-3 text-right tabular-nums">
+                        <td className="px-5 py-3 text-right tabular-nums dark:text-slate-300">
                           {r.keyboard_count}
                         </td>
-                        <td className="px-5 py-3 text-right tabular-nums">
+                        <td className="px-5 py-3 text-right tabular-nums dark:text-slate-300">
                           {r.mouse_count}
                         </td>
                         <td className="px-5 py-3 text-right">
                           <span className="inline-flex items-center gap-2">
-                            <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
+                            <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                               <span
                                 className="block h-full bg-brand-500"
                                 style={{
@@ -244,7 +231,7 @@ export default function DashboardPage() {
                                 }}
                               />
                             </span>
-                            <span className="w-10 text-right font-medium text-slate-700 tabular-nums">
+                            <span className="w-10 text-right font-medium text-slate-700 tabular-nums dark:text-slate-200">
                               {Math.round(r.activity_percent)}%
                             </span>
                           </span>
@@ -259,25 +246,19 @@ export default function DashboardPage() {
         </div>
 
         <div>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
-              <h3 className="text-sm font-semibold text-slate-900">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3 dark:border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {t('dashboard.latestScreenshots')}
               </h3>
-              <Link
-                to="/app/screenshots"
-                className="text-xs font-semibold text-brand-700 hover:text-brand-800"
-              >
-                {t('dashboard.viewAll')}
-              </Link>
             </div>
             <div className="p-3">
               {screenshotsQuery.isLoading ? (
-                <p className="px-2 py-8 text-center text-sm text-slate-500">
+                <p className="px-2 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
                   {t('dashboard.table.loading')}
                 </p>
               ) : recentScreenshots.length === 0 ? (
-                <p className="px-2 py-8 text-center text-sm text-slate-500">
+                <p className="px-2 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
                   {t('dashboard.noScreenshots')}
                 </p>
               ) : (
@@ -287,7 +268,7 @@ export default function DashboardPage() {
                       key={s.id}
                       type="button"
                       onClick={() => setLightbox(s)}
-                      className="group overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left transition hover:border-brand-200"
+                      className="group overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left transition hover:border-brand-200 dark:border-slate-800 dark:bg-slate-800 dark:hover:border-brand-500/40"
                     >
                       <div className="aspect-video">
                         <img
@@ -302,7 +283,7 @@ export default function DashboardPage() {
                           }}
                         />
                       </div>
-                      <p className="px-2 py-1.5 text-[11px] text-slate-500">
+                      <p className="px-2 py-1.5 text-[11px] text-slate-500 dark:text-slate-400">
                         {formatTime(s.captured_at)}
                       </p>
                     </button>
@@ -312,11 +293,11 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-dashed border-slate-200 bg-white p-5">
-            <h4 className="text-sm font-semibold text-slate-900">
+          <div className="mt-4 rounded-2xl border border-dashed border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-900">
+            <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               {t('dashboard.desktopNotInstalled')}
             </h4>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               {t('dashboard.desktopHint')}
             </p>
             <Link to="/app/download" className="mt-3 block">
@@ -336,17 +317,17 @@ export default function DashboardPage() {
           onClick={() => setLightbox(null)}
         >
           <div
-            className="max-h-full max-w-5xl overflow-hidden rounded-2xl bg-white"
+            className="max-h-full max-w-5xl overflow-hidden rounded-2xl bg-white dark:bg-slate-900"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
-              <p className="text-sm font-semibold text-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3 dark:border-slate-800">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {formatDateTime(lightbox.captured_at)}
               </p>
               <button
                 type="button"
                 onClick={() => setLightbox(null)}
-                className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100"
+                className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
                 aria-label={t('dashboard.close')}
               >
                 <svg
@@ -378,10 +359,22 @@ export default function DashboardPage() {
 
 type Tone = 'brand' | 'violet' | 'emerald' | 'amber'
 const toneMap: Record<Tone, { bg: string; text: string }> = {
-  brand: { bg: 'bg-brand-50', text: 'text-brand-700' },
-  violet: { bg: 'bg-violet-50', text: 'text-violet-700' },
-  emerald: { bg: 'bg-emerald-50', text: 'text-emerald-700' },
-  amber: { bg: 'bg-amber-50', text: 'text-amber-700' },
+  brand: {
+    bg: 'bg-brand-50 dark:bg-brand-500/15',
+    text: 'text-brand-700 dark:text-brand-300',
+  },
+  violet: {
+    bg: 'bg-violet-50 dark:bg-violet-500/15',
+    text: 'text-violet-700 dark:text-violet-300',
+  },
+  emerald: {
+    bg: 'bg-emerald-50 dark:bg-emerald-500/15',
+    text: 'text-emerald-700 dark:text-emerald-300',
+  },
+  amber: {
+    bg: 'bg-amber-50 dark:bg-amber-500/15',
+    text: 'text-amber-700 dark:text-amber-300',
+  },
 }
 
 function StatCard({
@@ -399,13 +392,13 @@ function StatCard({
 }) {
   const c = toneMap[tone]
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
             {label}
           </p>
-          <p className="mt-1 text-2xl font-semibold tabular-nums text-slate-900">
+          <p className="mt-1 text-2xl font-semibold tabular-nums text-slate-900 dark:text-slate-100">
             {loading ? '—' : value}
           </p>
         </div>

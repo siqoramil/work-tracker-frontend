@@ -13,7 +13,10 @@
     "signUp": "Регистрация",
     "startFreeTrial": "Попробовать бесплатно",
     "startFree": "Начать бесплатно",
-    "toggleMenu": "Переключить меню"
+    "toggleMenu": "Переключить меню",
+    "switchToDark": "Переключить на тёмную тему",
+    "switchToLight": "Переключить на светлую тему",
+    "theme": "Тема"
   },
   "marketingNav": {
     "links": {
@@ -55,12 +58,49 @@
     }
   },
   "appNav": {
-    "dashboard": "Главная",
-    "activity": "Активность",
-    "screenshots": "Скриншоты",
+    "tracking": "Трекинг",
+    "board": "Доска",
     "team": "Команда",
     "settings": "Настройки",
     "download": "Скачать"
+  },
+  "tracking": {
+    "kicker": "Рабочая область",
+    "title": "Центр трекинга",
+    "subtitle": "Краткий взгляд на команду — статистика, журналы активности и скриншоты в одном месте.",
+    "tabs": {
+      "overview": "Обзор",
+      "activity": "Журнал",
+      "screenshots": "Скриншоты"
+    }
+  },
+  "board": {
+    "kicker": "Рабочая область",
+    "title": "Доска",
+    "subtitle": "Простой канбан для планирования и отслеживания задач вместе с активностью команды.",
+    "summary": "{{columns}} колонок · {{cards}} карточек",
+    "addColumn": "Новая колонка",
+    "addCard": "Новая карточка",
+    "add": "Добавить",
+    "columnNamePlaceholder": "Название колонки…",
+    "cardPlaceholder": "Название карточки…",
+    "columnMenu": "Действия колонки",
+    "rename": "Переименовать",
+    "deleteColumn": "Удалить колонку",
+    "deleteCard": "Удалить карточку",
+    "emptyColumn": "Перетащите карточки сюда",
+    "description": "Описание",
+    "descriptionPlaceholder": "Детали, ссылки или заметки…",
+    "color": "Цвет",
+    "colorNone": "Без цвета",
+    "createdAt": "Создано {{date}}",
+    "reset": "Сбросить доску",
+    "confirmResetTitle": "Сбросить доску?",
+    "confirmResetMessage": "Это заменит ваши колонки и карточки на стандартную доску.",
+    "confirmDeleteColumnTitle": "Удалить колонку?",
+    "confirmDeleteColumnMessage": "«{{title}}» и {{count}} карточек будут удалены без возможности восстановления.",
+    "confirmDeleteCardTitle": "Удалить карточку?",
+    "confirmDeleteCardMessage": "«{{title}}» будет удалена без возможности восстановления."
   },
   "auth": {
     "signIn": {

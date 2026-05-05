@@ -16,7 +16,7 @@ function scorePassword(password: string) {
 }
 
 const strengthColors = [
-  'bg-slate-200',
+  'bg-slate-200 dark:bg-slate-700',
   'bg-red-400',
   'bg-amber-400',
   'bg-brand-400',
@@ -64,13 +64,13 @@ export default function SignUpPage() {
   return (
     <div>
       <div className="mb-8">
-        <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
+        <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100 dark:bg-brand-500/15 dark:text-brand-200 dark:ring-brand-500/30">
           {t('auth.signUp.badge')}
         </span>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           {t('auth.signUp.title')}
         </h2>
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           {t('auth.signUp.subtitle')}
         </p>
       </div>
@@ -78,7 +78,7 @@ export default function SignUpPage() {
       {error && (
         <div
           role="alert"
-          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
         >
           {error}
         </div>
@@ -178,34 +178,42 @@ export default function SignUpPage() {
               <span
                 key={i}
                 className={`h-1.5 flex-1 rounded-full transition ${
-                  i < strength ? strengthColors[strength] : 'bg-slate-200'
+                  i < strength
+                    ? strengthColors[strength]
+                    : 'bg-slate-200 dark:bg-slate-700'
                 }`}
               />
             ))}
           </div>
-          <p className="mt-1.5 text-xs text-slate-500">
+          <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
             {t('auth.signUp.strength')}{' '}
-            <span className="font-medium text-slate-700">
+            <span className="font-medium text-slate-700 dark:text-slate-200">
               {t(`auth.signUp.strengthLabels.${strength}` as const)}
             </span>
           </p>
         </div>
 
-        <label className="flex cursor-pointer items-start gap-2.5 text-sm text-slate-600">
+        <label className="flex cursor-pointer items-start gap-2.5 text-sm text-slate-600 dark:text-slate-300">
           <input
             type="checkbox"
             checked={agreed}
             onChange={(e) => setAgreed(e.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-800"
             required
           />
           <span>
             {t('auth.signUp.agreeTo')}{' '}
-            <a href="#" className="font-medium text-brand-700 hover:underline">
+            <a
+              href="#"
+              className="font-medium text-brand-700 hover:underline dark:text-brand-300"
+            >
               {t('auth.signUp.termsOfService')}
             </a>{' '}
             {t('auth.signUp.and')}{' '}
-            <a href="#" className="font-medium text-brand-700 hover:underline">
+            <a
+              href="#"
+              className="font-medium text-brand-700 hover:underline dark:text-brand-300"
+            >
               {t('auth.signUp.privacyPolicy')}
             </a>
             .
@@ -217,11 +225,11 @@ export default function SignUpPage() {
         </Button>
       </form>
 
-      <p className="mt-8 text-center text-sm text-slate-500">
+      <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
         {t('auth.signUp.haveAccount')}{' '}
         <Link
           to="/auth/signin"
-          className="font-semibold text-brand-700 hover:text-brand-800"
+          className="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200"
         >
           {t('auth.signUp.signInLink')}
         </Link>

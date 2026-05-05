@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Logo from '@/components/ui/Logo'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 
 const highlights = [
   {
@@ -18,7 +19,7 @@ const highlights = [
 
 export default function AuthLayout() {
   return (
-    <div className="flex min-h-screen w-full bg-white">
+    <div className="flex min-h-screen w-full bg-white dark:bg-slate-950">
       <aside className="relative hidden w-1/2 overflow-hidden bg-brand-700 text-white lg:flex lg:flex-col">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800" />
@@ -100,7 +101,10 @@ export default function AuthLayout() {
         </div>
       </aside>
 
-      <main className="flex flex-1 items-center justify-center px-5 py-10 sm:px-10">
+      <main className="relative flex flex-1 items-center justify-center px-5 py-10 sm:px-10">
+        <div className="absolute right-5 top-5 sm:right-10 sm:top-8">
+          <ThemeToggle />
+        </div>
         <div className="w-full max-w-md">
           <div className="mb-10 flex items-center justify-between lg:hidden">
             <Logo />

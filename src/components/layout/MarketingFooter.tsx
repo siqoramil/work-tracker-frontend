@@ -57,12 +57,12 @@ export default function MarketingFooter() {
   ]
 
   return (
-    <footer className="border-t border-slate-200 bg-slate-50/50">
+    <footer className="border-t border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/40">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
         <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:gap-8 md:grid-cols-3 md:gap-10 lg:grid-cols-5">
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Logo />
-            <p className="mt-4 max-w-sm text-sm text-slate-500">
+            <p className="mt-4 max-w-sm text-sm text-slate-500 dark:text-slate-400">
               {t('marketingFooter.tagline')}
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -71,7 +71,7 @@ export default function MarketingFooter() {
                   key={s}
                   href="#"
                   aria-label={s}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:border-brand-300 hover:text-brand-700"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:border-brand-300 hover:text-brand-700 dark:border-slate-700 dark:text-slate-400 dark:hover:border-brand-500/60 dark:hover:text-brand-300"
                 >
                   <span className="text-xs font-semibold uppercase">
                     {s[0]}
@@ -83,13 +83,16 @@ export default function MarketingFooter() {
 
           {columns.map((col) => (
             <div key={col.title} className="min-w-0">
-              <p className="text-sm font-semibold text-slate-900">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {col.title}
               </p>
-              <ul className="mt-4 space-y-3 text-sm text-slate-600">
+              <ul className="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-400">
                 {col.items.map((item) => (
                   <li key={item.key}>
-                    <a href="#" className="hover:text-brand-700">
+                    <a
+                      href="#"
+                      className="hover:text-brand-700 dark:hover:text-brand-300"
+                    >
                       {item.label}
                     </a>
                   </li>
@@ -99,29 +102,35 @@ export default function MarketingFooter() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 text-xs text-slate-500 sm:mt-12 md:flex-row md:items-center md:gap-6">
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-6 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400 sm:mt-12 md:flex-row md:items-center md:gap-6">
           <p className="leading-relaxed">
             {t('marketingFooter.credit', { year: new Date().getFullYear() })}{' '}
             <a
               href="https://ovrin.uz"
               target="_blank"
               rel="noreferrer"
-              className="font-semibold text-brand-700 hover:text-brand-800"
+              className="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200"
             >
               ovrin.uz
             </a>
             .
           </p>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link to="/auth/signin" className="hover:text-brand-700">
+            <Link
+              to="/auth/signin"
+              className="hover:text-brand-700 dark:hover:text-brand-300"
+            >
               {t('common.signIn')}
             </Link>
-            <a href="#" className="hover:text-brand-700">
+            <a
+              href="#"
+              className="hover:text-brand-700 dark:hover:text-brand-300"
+            >
               {t('marketingFooter.links.status')}
             </a>
             <a
               href="mailto:siqoramil@gmail.com"
-              className="break-all hover:text-brand-700"
+              className="break-all hover:text-brand-700 dark:hover:text-brand-300"
             >
               siqoramil@gmail.com
             </a>

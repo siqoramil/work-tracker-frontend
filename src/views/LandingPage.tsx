@@ -64,31 +64,31 @@ const logos = ['NovaCorp', 'Helix', 'Proxima', 'Arclight', 'Bluebird', 'Radix']
 export default function LandingPage() {
   const { t } = useTranslation()
   return (
-    <div className="relative min-h-screen bg-white text-slate-800">
+    <div className="relative min-h-screen bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-200">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-50 via-white to-white" />
-        <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-brand-200/40 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-50 via-white to-white dark:from-brand-900/30 dark:via-slate-950 dark:to-slate-950" />
+        <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-brand-200/40 blur-3xl dark:bg-brand-500/20" />
       </div>
 
       <MarketingNav />
 
       <section className="relative mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 sm:pt-20 sm:pb-20 lg:pt-28">
         <div className="flex flex-col items-center text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-medium text-brand-700 shadow-sm">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-medium text-brand-700 shadow-sm dark:border-brand-500/40 dark:bg-slate-900 dark:text-brand-200">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             {t('landing.hero.badge')}
           </span>
-          <h1 className="mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl lg:text-6xl">
             {t('landing.hero.titleStart')}{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 text-brand-700">
+              <span className="relative z-10 text-brand-700 dark:text-brand-300">
                 {t('landing.hero.titleHighlight')}
               </span>
-              <span className="absolute inset-x-0 bottom-1 -z-0 h-3 bg-brand-200/70" />
+              <span className="absolute inset-x-0 bottom-1 -z-0 h-3 bg-brand-200/70 dark:bg-brand-500/30" />
             </span>
             .
           </h1>
-          <p className="mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
+          <p className="mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">
             {t('landing.hero.subtitle')}
           </p>
           <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:w-auto sm:flex-row sm:items-center">
@@ -106,14 +106,14 @@ export default function LandingPage() {
               </Button>
             </a>
           </div>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-slate-500">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
             <span className="inline-flex items-center gap-1.5">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
-                className="h-3.5 w-3.5 text-brand-600"
+                className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400"
               >
                 <path
                   d="M5 12l4 4L19 7"
@@ -129,7 +129,7 @@ export default function LandingPage() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
-                className="h-3.5 w-3.5 text-brand-600"
+                className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400"
               >
                 <path
                   d="M5 12l4 4L19 7"
@@ -145,7 +145,7 @@ export default function LandingPage() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
-                className="h-3.5 w-3.5 text-brand-600"
+                className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400"
               >
                 <path
                   d="M5 12l4 4L19 7"
@@ -159,12 +159,12 @@ export default function LandingPage() {
         </div>
 
         <div className="relative mx-auto mt-16 max-w-5xl">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-900/10">
-            <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-900/10 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/40">
+            <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-4 py-2.5 dark:border-slate-800 dark:bg-slate-900/60">
               <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
               <span className="h-2.5 w-2.5 rounded-full bg-brand-400" />
-              <span className="ml-3 text-xs text-slate-500">
+              <span className="ml-3 text-xs text-slate-500 dark:text-slate-400">
                 app.worktracker.io / dashboard
               </span>
             </div>
@@ -182,7 +182,9 @@ export default function LandingPage() {
                   <div
                     key={item}
                     className={`rounded-lg px-3 py-2 text-xs font-medium ${
-                      i === 0 ? 'bg-brand-50 text-brand-800' : 'text-slate-500'
+                      i === 0
+                        ? 'bg-brand-50 text-brand-800 dark:bg-brand-500/15 dark:text-brand-200'
+                        : 'text-slate-500 dark:text-slate-400'
                     }`}
                   >
                     {item}
@@ -198,19 +200,21 @@ export default function LandingPage() {
                   ].map((c) => (
                     <div
                       key={c.label}
-                      className="rounded-xl border border-slate-200 bg-white p-2.5 sm:p-3"
+                      className="rounded-xl border border-slate-200 bg-white p-2.5 dark:border-slate-800 dark:bg-slate-900/60 sm:p-3"
                     >
-                      <p className="text-[9px] uppercase tracking-wide text-slate-400 sm:text-[10px]">
+                      <p className="text-[9px] uppercase tracking-wide text-slate-400 dark:text-slate-500 sm:text-[10px]">
                         {c.label}
                       </p>
-                      <p className="mt-1 text-base font-semibold text-slate-900 sm:text-xl">
+                      <p className="mt-1 text-base font-semibold text-slate-900 dark:text-slate-100 sm:text-xl">
                         {c.value}
                       </p>
-                      <p className="text-[10px] text-brand-600">{c.delta}</p>
+                      <p className="text-[10px] text-brand-600 dark:text-brand-400">
+                        {c.delta}
+                      </p>
                     </div>
                   ))}
                 </div>
-                <div className="mt-3 h-40 rounded-xl border border-slate-200 bg-gradient-to-b from-brand-50 to-white p-3">
+                <div className="mt-3 h-40 rounded-xl border border-slate-200 bg-gradient-to-b from-brand-50 to-white p-3 dark:border-slate-800 dark:from-brand-900/30 dark:to-slate-900">
                   <div className="flex items-end gap-1.5">
                     {[45, 72, 58, 90, 65, 110, 82, 95, 70, 120, 88, 105].map(
                       (h, i) => (
@@ -230,16 +234,16 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200 bg-white py-10">
+      <section className="border-y border-slate-200 bg-white py-10 dark:border-slate-800 dark:bg-slate-900/40">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <p className="text-center text-xs font-medium uppercase tracking-wider text-slate-400">
+          <p className="text-center text-xs font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
             {t('landing.trustedBy')}
           </p>
           <div className="mt-6 grid grid-cols-2 items-center gap-6 sm:grid-cols-3 lg:grid-cols-6">
             {logos.map((l) => (
               <div
                 key={l}
-                className="text-center text-lg font-semibold tracking-tight text-slate-400"
+                className="text-center text-lg font-semibold tracking-tight text-slate-400 dark:text-slate-500"
               >
                 {l}
               </div>
@@ -253,13 +257,13 @@ export default function LandingPage() {
         className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24"
       >
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
+          <p className="text-sm font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300">
             Built for admins
           </p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
             Everything you need to run a productive team.
           </h2>
-          <p className="mt-4 text-base text-slate-600">
+          <p className="mt-4 text-base text-slate-600 dark:text-slate-300">
             WorkTracker bundles time tracking, project management, and billing
             into one admin-friendly workspace. No more stitching together five
             tools.
@@ -270,9 +274,9 @@ export default function LandingPage() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-900/5"
+              className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-900/5 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-brand-500/40 dark:hover:shadow-black/40"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-100 dark:bg-brand-500/15 dark:text-brand-300 dark:ring-brand-500/30">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -286,22 +290,27 @@ export default function LandingPage() {
                   {f.icon}
                 </svg>
               </div>
-              <h3 className="mt-5 text-lg font-semibold text-slate-900">
+              <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-slate-100">
                 {f.title}
               </h3>
-              <p className="mt-2 text-sm text-slate-600">{f.text}</p>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                {f.text}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="how" className="bg-slate-50/60 py-16 sm:py-24">
+      <section
+        id="how"
+        className="bg-slate-50/60 py-16 dark:bg-slate-900/40 sm:py-24"
+      >
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
+            <p className="text-sm font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300">
               How it works
             </p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-4xl">
               Up and running in three steps.
             </h2>
           </div>
@@ -310,15 +319,17 @@ export default function LandingPage() {
             {steps.map((s) => (
               <div
                 key={s.num}
-                className="relative rounded-2xl border border-slate-200 bg-white p-7"
+                className="relative rounded-2xl border border-slate-200 bg-white p-7 dark:border-slate-800 dark:bg-slate-900/60"
               >
-                <span className="text-4xl font-semibold tracking-tight text-brand-200">
+                <span className="text-4xl font-semibold tracking-tight text-brand-200 dark:text-brand-500/60">
                   {s.num}
                 </span>
-                <h3 className="mt-3 text-lg font-semibold text-slate-900">
+                <h3 className="mt-3 text-lg font-semibold text-slate-900 dark:text-slate-100">
                   {s.title}
                 </h3>
-                <p className="mt-2 text-sm text-slate-600">{s.text}</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                  {s.text}
+                </p>
               </div>
             ))}
           </div>
@@ -338,18 +349,20 @@ export default function LandingPage() {
           >
             <path d="M9 7H5a2 2 0 00-2 2v4a2 2 0 002 2h2v4H3v2h8v-2H9v-8a2 2 0 00-2-2zm12 0h-4a2 2 0 00-2 2v4a2 2 0 002 2h2v4h-4v2h8v-2h-2v-8a2 2 0 00-2-2z" />
           </svg>
-          <blockquote className="mt-6 text-xl font-medium leading-relaxed tracking-tight text-slate-900 sm:text-3xl">
+          <blockquote className="mt-6 text-xl font-medium leading-relaxed tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
             “We replaced three tools with WorkTracker. Our weekly payroll cycle
             dropped from 2 days to 40 minutes — and the team actually enjoys
             using it.”
           </blockquote>
           <figcaption className="mt-8 flex items-center justify-center gap-4">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white dark:bg-brand-500">
               MR
             </span>
             <div className="text-left">
-              <p className="font-semibold text-slate-900">Maya Reyes</p>
-              <p className="text-sm text-slate-500">
+              <p className="font-semibold text-slate-900 dark:text-slate-100">
+                Maya Reyes
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 Head of Operations · Helix Studio
               </p>
             </div>

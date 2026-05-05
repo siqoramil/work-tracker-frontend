@@ -6,12 +6,11 @@ import SignUpPage from '@/views/auth/SignUpPage'
 import ResetPasswordPage from '@/views/auth/ResetPasswordPage'
 import VerifyEmailPage from '@/views/auth/VerifyEmailPage'
 import AppLayout from '@/views/app/AppLayout'
-import DashboardPage from '@/views/app/DashboardPage'
+import TrackingPage from '@/views/app/TrackingPage'
+import BoardPage from '@/views/app/BoardPage'
 import DownloadPage from '@/views/app/DownloadPage'
 import TeamPage from '@/views/app/TeamPage'
 import SettingsPage from '@/views/app/SettingsPage'
-import ActivityPage from '@/views/app/ActivityPage'
-import ScreenshotsPage from '@/views/app/ScreenshotsPage'
 import ProtectedRoute from '@/routes/ProtectedRoute'
 import PublicOnlyRoute from '@/routes/PublicOnlyRoute'
 
@@ -33,13 +32,25 @@ function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/app" element={<AppLayout />}>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="activity" element={<ActivityPage />} />
-          <Route path="screenshots" element={<ScreenshotsPage />} />
+          <Route index element={<Navigate to="tracking" replace />} />
+          <Route path="tracking" element={<TrackingPage />} />
+          <Route path="board" element={<BoardPage />} />
           <Route path="team" element={<TeamPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="download" element={<DownloadPage />} />
+
+          <Route
+            path="dashboard"
+            element={<Navigate to="/app/tracking" replace />}
+          />
+          <Route
+            path="activity"
+            element={<Navigate to="/app/tracking?tab=activity" replace />}
+          />
+          <Route
+            path="screenshots"
+            element={<Navigate to="/app/tracking?tab=screenshots" replace />}
+          />
         </Route>
       </Route>
 

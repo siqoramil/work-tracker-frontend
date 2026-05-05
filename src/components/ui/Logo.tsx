@@ -14,7 +14,8 @@ export default function Logo({
       ? 'bg-brand-600 text-white'
       : 'bg-white/15 text-white ring-1 ring-white/30 backdrop-blur'
 
-  const labelClasses = tone === 'brand' ? 'text-slate-900' : 'text-white'
+  const labelClasses =
+    tone === 'brand' ? 'text-slate-900 dark:text-slate-100' : 'text-white'
 
   return (
     <div className={`inline-flex items-center gap-2.5 ${className}`}>

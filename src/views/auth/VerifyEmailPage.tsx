@@ -46,7 +46,7 @@ export default function VerifyEmailPage() {
     <div>
       <Link
         to="/auth/signup"
-        className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-brand-700"
+        className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300"
       >
         <svg
           viewBox="0 0 24 24"
@@ -64,15 +64,15 @@ export default function VerifyEmailPage() {
       </Link>
 
       <div className="mb-8">
-        <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
+        <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100 dark:bg-brand-500/15 dark:text-brand-200 dark:ring-brand-500/30">
           {t('auth.verifyEmail.badge')}
         </span>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           {t('auth.verifyEmail.title')}
         </h2>
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           {t('auth.verifyEmail.subtitlePrefix')}{' '}
-          <span className="font-medium text-slate-900">
+          <span className="font-medium text-slate-900 dark:text-slate-100">
             {email || t('auth.verifyEmail.yourEmail')}
           </span>
           {t('auth.verifyEmail.subtitleSuffix')}
@@ -82,7 +82,7 @@ export default function VerifyEmailPage() {
       {error && (
         <div
           role="alert"
-          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
         >
           {error}
         </div>
@@ -95,7 +95,7 @@ export default function VerifyEmailPage() {
           value={email}
           readOnly
           tabIndex={-1}
-          className="cursor-not-allowed bg-slate-50 text-slate-600"
+          className="cursor-not-allowed bg-slate-50 text-slate-600 dark:bg-slate-900 dark:text-slate-300"
           leadingIcon={
             <svg
               viewBox="0 0 24 24"
@@ -130,11 +130,11 @@ export default function VerifyEmailPage() {
         </Button>
       </form>
 
-      <p className="mt-8 text-center text-sm text-slate-500">
+      <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
         {t('auth.verifyEmail.wrongEmail')}{' '}
         <Link
           to="/auth/signup"
-          className="font-semibold text-brand-700 hover:text-brand-800"
+          className="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200"
         >
           {t('auth.verifyEmail.signUpAgain')}
         </Link>

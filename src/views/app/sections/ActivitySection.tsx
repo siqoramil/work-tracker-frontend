@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
@@ -69,8 +71,10 @@ function SortableHeader({
       <button
         type="button"
         onClick={() => onClick(sortKey)}
-        className={`inline-flex items-center gap-1 uppercase tracking-wide transition hover:text-slate-700 ${
-          active ? 'text-slate-900' : 'text-slate-500'
+        className={`inline-flex items-center gap-1 uppercase tracking-wide transition hover:text-slate-700 dark:hover:text-slate-200 ${
+          active
+            ? 'text-slate-900 dark:text-slate-100'
+            : 'text-slate-500 dark:text-slate-400'
         } ${align === 'right' ? 'flex-row-reverse' : ''}`}
       >
         <span>{label}</span>
@@ -85,7 +89,7 @@ function SortableHeader({
   )
 }
 
-export default function ActivityPage() {
+export default function ActivitySection() {
   const { t } = useTranslation()
   const defaults = useMemo(() => computeDefaultRange(), [])
 
@@ -163,7 +167,6 @@ export default function ActivityPage() {
     }
   }
 
-  // Load more rows when sentinel is intersected.
   useEffect(() => {
     const node = sentinelRef.current
     if (!node) return
@@ -188,18 +191,8 @@ export default function ActivityPage() {
 
   return (
     <div>
-      <div className="mb-6">
-        <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-          {t('activity.kicker')}
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-          {t('activity.title')}
-        </h1>
-        <p className="mt-2 text-sm text-slate-600">{t('activity.subtitle')}</p>
-      </div>
-
       <form
-        className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-end"
+        className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-end"
         onSubmit={(e) => {
           e.preventDefault()
           setApplied(draft)
@@ -238,7 +231,7 @@ export default function ActivityPage() {
       {error && (
         <div
           role="alert"
-          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
         >
           {extractApiError(error, t('activity.errorFallback'))}
         </div>
@@ -258,44 +251,46 @@ export default function ActivityPage() {
         ].map((c) => (
           <div
             key={c.label}
-            className="rounded-2xl border border-slate-200 bg-white p-4"
+            className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
           >
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
               {c.label}
             </p>
-            <p className="mt-1 text-2xl font-semibold text-slate-900">
+            <p className="mt-1 text-2xl font-semibold text-slate-900 dark:text-slate-100">
               {c.value}
             </p>
           </div>
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3 dark:border-slate-800">
           <div className="flex flex-col">
-            <h3 className="text-sm font-semibold text-slate-900">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               {t('activity.table.entries')}
             </h3>
-            <span className="text-[11px] text-slate-400">
+            <span className="text-[11px] text-slate-400 dark:text-slate-500">
               {t('activity.table.timezoneNote', { tz: localTz })}
             </span>
           </div>
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-slate-500 dark:text-slate-400">
             {t('activity.table.showing')}{' '}
-            <span className="font-semibold text-slate-900">
+            <span className="font-semibold text-slate-900 dark:text-slate-100">
               {visibleRows.length}
             </span>{' '}
             {t('activity.table.of')}{' '}
-            <span className="font-semibold text-slate-900">
+            <span className="font-semibold text-slate-900 dark:text-slate-100">
               {sortedRows.length}
             </span>{' '}
             · {t('activity.table.avgActivity')}{' '}
-            <span className="font-semibold text-slate-900">{avgActivity}%</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">
+              {avgActivity}%
+            </span>
           </span>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-100 text-sm">
-            <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <table className="min-w-full divide-y divide-slate-100 text-sm dark:divide-slate-800">
+            <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-900/60 dark:text-slate-400">
               <tr>
                 <th className="w-12 px-5 py-3 text-right">#</th>
                 <SortableHeader
@@ -338,12 +333,12 @@ export default function ActivityPage() {
                 />
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {isLoading ? (
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-5 py-10 text-center text-sm text-slate-500"
+                    className="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400"
                   >
                     {t('activity.table.loading')}
                   </td>
@@ -352,7 +347,7 @@ export default function ActivityPage() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-5 py-10 text-center text-sm text-slate-500"
+                    className="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400"
                   >
                     {t('activity.empty')}
                   </td>
@@ -361,26 +356,26 @@ export default function ActivityPage() {
                 <>
                   {visibleRows.map((r, idx) => (
                     <tr key={r.id}>
-                      <td className="px-5 py-3 text-right text-xs text-slate-400 tabular-nums">
+                      <td className="px-5 py-3 text-right text-xs text-slate-400 tabular-nums dark:text-slate-500">
                         {idx + 1}
                       </td>
-                      <td className="px-5 py-3 text-slate-700">
+                      <td className="px-5 py-3 text-slate-700 dark:text-slate-300">
                         {formatDate(r.interval_start)}
                       </td>
                       <td className="px-5 py-3">
-                        <code className="text-xs text-slate-500">
+                        <code className="text-xs text-slate-500 dark:text-slate-400">
                           {r.user_id.slice(0, 8)}…
                         </code>
                       </td>
-                      <td className="px-5 py-3 text-right tabular-nums">
+                      <td className="px-5 py-3 text-right tabular-nums dark:text-slate-300">
                         {r.keyboard_count}
                       </td>
-                      <td className="px-5 py-3 text-right tabular-nums">
+                      <td className="px-5 py-3 text-right tabular-nums dark:text-slate-300">
                         {r.mouse_count}
                       </td>
                       <td className="px-5 py-3 text-right">
                         <span className="inline-flex items-center gap-2">
-                          <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
+                          <span className="h-1.5 w-16 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                             <span
                               className="block h-full bg-brand-500"
                               style={{
@@ -388,7 +383,7 @@ export default function ActivityPage() {
                               }}
                             />
                           </span>
-                          <span className="w-10 text-right font-medium text-slate-700 tabular-nums">
+                          <span className="w-10 text-right font-medium text-slate-700 tabular-nums dark:text-slate-200">
                             {Math.round(r.activity_percent)}%
                           </span>
                         </span>
@@ -399,10 +394,10 @@ export default function ActivityPage() {
                     <tr ref={sentinelRef}>
                       <td
                         colSpan={6}
-                        className="px-5 py-6 text-center text-xs text-slate-400"
+                        className="px-5 py-6 text-center text-xs text-slate-400 dark:text-slate-500"
                       >
                         <span className="inline-flex items-center gap-2">
-                          <span className="h-3 w-3 animate-spin rounded-full border-2 border-slate-200 border-t-brand-500" />
+                          <span className="h-3 w-3 animate-spin rounded-full border-2 border-slate-200 border-t-brand-500 dark:border-slate-700" />
                           {t('activity.table.loadingMore')}
                         </span>
                       </td>
@@ -412,7 +407,7 @@ export default function ActivityPage() {
                     <tr>
                       <td
                         colSpan={6}
-                        className="px-5 py-4 text-center text-xs text-slate-400"
+                        className="px-5 py-4 text-center text-xs text-slate-400 dark:text-slate-500"
                       >
                         {t('activity.table.endOfResults', {
                           count: sortedRows.length,

@@ -175,7 +175,7 @@ export default function DateField({
       {label && (
         <label
           htmlFor={id}
-          className="mb-1.5 block text-sm font-medium text-slate-700"
+          className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-200"
         >
           {label}
         </label>
@@ -188,20 +188,26 @@ export default function DateField({
           onClick={() => !disabled && setOpen((o) => !o)}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className={`group flex w-full items-center justify-between rounded-xl border bg-white px-3.5 py-2.5 text-left text-sm transition ${
+          className={`group flex w-full items-center justify-between rounded-xl border bg-white px-3.5 py-2.5 text-left text-sm transition dark:bg-slate-800 ${
             open
-              ? 'border-brand-500 ring-4 ring-brand-100'
-              : 'border-slate-200 hover:border-slate-300'
+              ? 'border-brand-500 ring-4 ring-brand-100 dark:border-brand-400 dark:ring-brand-900/40'
+              : 'border-slate-200 hover:border-slate-300 dark:border-slate-700 dark:hover:border-slate-600'
           } ${disabled ? 'cursor-not-allowed opacity-60' : ''} ${className}`}
         >
-          <span className={display ? 'text-slate-900' : 'text-slate-400'}>
+          <span
+            className={
+              display
+                ? 'text-slate-900 dark:text-slate-100'
+                : 'text-slate-400 dark:text-slate-500'
+            }
+          >
             {display || placeholder || 'DD/MM/YYYY'}
           </span>
           <span
             className={
               open
-                ? 'text-brand-600'
-                : 'text-slate-400 group-hover:text-slate-500'
+                ? 'text-brand-600 dark:text-brand-300'
+                : 'text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400'
             }
           >
             <CalendarIcon />
@@ -211,17 +217,17 @@ export default function DateField({
         {open && (
           <div
             role="dialog"
-            className="absolute left-0 top-full z-50 mt-2 w-[20rem] origin-top rounded-2xl border border-slate-200 bg-white p-4 shadow-xl"
+            className="absolute left-0 top-full z-50 mt-2 w-[20rem] origin-top rounded-2xl border border-slate-200 bg-white p-4 shadow-xl dark:border-slate-700 dark:bg-slate-800 dark:shadow-black/50"
           >
             <div className="mb-3 flex items-center justify-between">
-              <div className="text-sm font-semibold capitalize text-slate-900">
+              <div className="text-sm font-semibold capitalize text-slate-900 dark:text-slate-100">
                 {monthLabel}
               </div>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
                   onClick={gotoPrevMonth}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100"
                   aria-label="Previous month"
                 >
                   <ChevronLeft />
@@ -229,7 +235,7 @@ export default function DateField({
                 <button
                   type="button"
                   onClick={gotoNextMonth}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100"
                   aria-label="Next month"
                 >
                   <ChevronRight />
@@ -241,7 +247,7 @@ export default function DateField({
               {weekdayHeaders.map((w, i) => (
                 <div
                   key={i}
-                  className="py-1 text-center text-[11px] font-semibold uppercase tracking-wide text-slate-400"
+                  className="py-1 text-center text-[11px] font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500"
                 >
                   {w}
                 </div>
@@ -259,17 +265,19 @@ export default function DateField({
                   'flex h-9 items-center justify-center rounded-lg text-sm transition '
                 if (oor) {
                   cls +=
-                    'cursor-not-allowed text-slate-300 line-through hover:bg-transparent'
+                    'cursor-not-allowed text-slate-300 line-through hover:bg-transparent dark:text-slate-600'
                 } else if (isSelected) {
                   cls +=
-                    'bg-brand-500 text-white font-semibold shadow-sm hover:bg-brand-600'
+                    'bg-brand-500 text-white font-semibold shadow-sm hover:bg-brand-600 dark:bg-brand-500 dark:hover:bg-brand-400'
                 } else if (isToday) {
                   cls +=
-                    'border border-brand-400 text-brand-700 font-semibold hover:bg-brand-50'
+                    'border border-brand-400 text-brand-700 font-semibold hover:bg-brand-50 dark:border-brand-400 dark:text-brand-300 dark:hover:bg-brand-500/10'
                 } else if (isCurrentMonth) {
-                  cls += 'text-slate-700 hover:bg-slate-100'
+                  cls +=
+                    'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700'
                 } else {
-                  cls += 'text-slate-300 hover:bg-slate-50'
+                  cls +=
+                    'text-slate-300 hover:bg-slate-50 dark:text-slate-600 dark:hover:bg-slate-700/50'
                 }
 
                 return (
@@ -286,12 +294,12 @@ export default function DateField({
               })}
             </div>
 
-            <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3 text-sm font-medium">
+            <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3 text-sm font-medium dark:border-slate-700">
               <button
                 type="button"
                 onClick={clear}
                 disabled={!value}
-                className="rounded-md px-2 py-1 text-slate-500 transition hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-md px-2 py-1 text-slate-500 transition hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40 dark:text-slate-400 dark:hover:text-slate-100"
               >
                 {t('common.clear', { defaultValue: 'Clear' })}
               </button>
@@ -299,7 +307,7 @@ export default function DateField({
                 type="button"
                 onClick={gotoToday}
                 disabled={todayDisabled}
-                className="rounded-md px-2 py-1 text-brand-600 transition hover:text-brand-700 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-md px-2 py-1 text-brand-600 transition hover:text-brand-700 disabled:cursor-not-allowed disabled:opacity-40 dark:text-brand-300 dark:hover:text-brand-200"
               >
                 {t('common.today', { defaultValue: 'Today' })}
               </button>

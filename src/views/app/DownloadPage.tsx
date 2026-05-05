@@ -85,22 +85,22 @@ export default function DownloadPage() {
     <div>
       <div className="mb-6 sm:mb-8 md:mb-10">
         <div className="max-w-xl">
-          <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-medium text-brand-700 ring-1 ring-inset ring-brand-100 sm:text-xs">
+          <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-medium text-brand-700 ring-1 ring-inset ring-brand-100 dark:bg-brand-500/15 dark:text-brand-200 dark:ring-brand-500/30 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             {t('download.signedInBadge')}
           </span>
-          <h1 className="mt-2.5 text-xl font-semibold tracking-tight text-slate-900 sm:mt-3 sm:text-2xl md:text-3xl lg:text-4xl">
+          <h1 className="mt-2.5 text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:mt-3 sm:text-2xl md:text-3xl lg:text-4xl">
             {t('download.welcome', {
               name: user?.full_name || t('download.fallbackName'),
             })}
           </h1>
-          <p className="mt-2 text-sm text-slate-600 md:text-base">
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 md:text-base">
             {t('download.subtitle')}
           </p>
         </div>
       </div>
 
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-white to-brand-50/40 shadow-sm">
+      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-white to-brand-50/40 shadow-sm dark:border-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-brand-900/30 dark:shadow-black/40">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-brand-500/10 blur-3xl"
@@ -111,17 +111,17 @@ export default function DownloadPage() {
         />
         <div className="relative grid items-center gap-5 p-5 sm:gap-6 sm:p-7 lg:grid-cols-[1fr_auto] lg:gap-8 lg:p-10">
           <div className="flex items-start gap-4 sm:gap-5">
-            <div className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-md shadow-slate-900/5 ring-1 ring-slate-50 sm:h-16 sm:w-16">
+            <div className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-md shadow-slate-900/5 ring-1 ring-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:shadow-black/40 dark:ring-slate-700/50 sm:h-16 sm:w-16">
               {primary.icon}
             </div>
             <div className="min-w-0">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-brand-700 sm:text-xs">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300 sm:text-xs">
                 {t('download.recommended')}
               </p>
-              <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl lg:text-3xl">
+              <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-2xl lg:text-3xl">
                 {t('download.downloadFor', { platform: primary.name })}
               </h2>
-              <p className="mt-1 text-xs text-slate-500 sm:mt-1.5 sm:text-sm">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 sm:mt-1.5 sm:text-sm">
                 {primary.fileHint} · {primary.size}
               </p>
             </div>
@@ -155,26 +155,26 @@ export default function DownloadPage() {
           return (
             <div
               key={p.id}
-              className={`flex flex-col rounded-2xl border bg-white p-5 transition sm:p-6 ${
+              className={`flex flex-col rounded-2xl border bg-white p-5 transition dark:bg-slate-900 sm:p-6 ${
                 isPrimary
-                  ? 'border-brand-300 ring-1 ring-brand-200'
-                  : 'border-slate-200 hover:border-brand-200 hover:shadow-md hover:shadow-brand-900/5'
+                  ? 'border-brand-300 ring-1 ring-brand-200 dark:border-brand-500/40 dark:ring-brand-500/20'
+                  : 'border-slate-200 hover:border-brand-200 hover:shadow-md hover:shadow-brand-900/5 dark:border-slate-800 dark:hover:border-brand-500/40 dark:hover:shadow-black/40'
               }`}
             >
               <div className="flex items-center justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-50 sm:h-12 sm:w-12">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:ring-slate-700/50 sm:h-12 sm:w-12">
                   {p.icon}
                 </div>
                 {isPrimary && (
-                  <span className="rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-800">
+                  <span className="rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-800 dark:bg-brand-500/15 dark:text-brand-200">
                     {t('download.detected')}
                   </span>
                 )}
               </div>
-              <h3 className="mt-4 text-base font-semibold text-slate-900 sm:mt-5">
+              <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-slate-100 sm:mt-5">
                 {p.name}
               </h3>
-              <p className="mt-1 truncate text-xs text-slate-500">
+              <p className="mt-1 truncate text-xs text-slate-500 dark:text-slate-400">
                 {p.fileHint} · {p.size}
               </p>
               <a href={p.url} download className="mt-4 sm:mt-5">
@@ -190,8 +190,8 @@ export default function DownloadPage() {
       </section>
 
       <section className="mt-6 grid gap-4 sm:mt-8 sm:gap-5 lg:grid-cols-[1.2fr_1fr] lg:gap-6">
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 lg:p-7">
-          <h3 className="text-base font-semibold text-slate-900 sm:text-lg">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 sm:p-6 lg:p-7">
+          <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 sm:text-lg">
             {t('download.installation.title')}
           </h3>
           <ol className="mt-4 space-y-4 sm:mt-5 sm:space-y-5">
@@ -217,14 +217,16 @@ export default function DownloadPage() {
               },
             ].map((s, i) => (
               <li key={s.title} className="flex gap-3 sm:gap-4">
-                <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-800">
+                <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-800 dark:bg-brand-500/15 dark:text-brand-200">
                   {i + 1}
                 </span>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                     {s.title}
                   </p>
-                  <p className="mt-0.5 text-sm text-slate-600">{s.text}</p>
+                  <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+                    {s.text}
+                  </p>
                 </div>
               </li>
             ))}
@@ -232,15 +234,15 @@ export default function DownloadPage() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
-            <h4 className="text-sm font-semibold text-slate-900">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+            <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               {t('download.rollout.title')}
             </h4>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
               {t('download.rollout.text')}
             </p>
-            <div className="mt-4 flex items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5">
-              <code className="min-w-0 flex-1 truncate text-xs text-slate-600">
+            <div className="mt-4 flex items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-2.5 dark:border-slate-700 dark:bg-slate-800">
+              <code className="min-w-0 flex-1 truncate text-xs text-slate-600 dark:text-slate-300">
                 https://worktracker.io/download
               </code>
               <button
@@ -250,18 +252,18 @@ export default function DownloadPage() {
                     'https://worktracker.io/download',
                   )
                 }
-                className="shrink-0 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-700"
+                className="shrink-0 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400"
               >
                 {t('download.rollout.copy')}
               </button>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-brand-200 bg-brand-50 p-5 sm:p-6">
-            <h4 className="text-sm font-semibold text-brand-900">
+          <div className="rounded-2xl border border-brand-200 bg-brand-50 p-5 dark:border-brand-500/30 dark:bg-brand-500/10 sm:p-6">
+            <h4 className="text-sm font-semibold text-brand-900 dark:text-brand-200">
               {t('download.help.title')}
             </h4>
-            <p className="mt-1 text-sm text-brand-900/80">
+            <p className="mt-1 text-sm text-brand-900/80 dark:text-brand-100/80">
               {t('download.help.text')}
             </p>
             <div className="mt-4 flex flex-col gap-2 sm:flex-row">

@@ -7,6 +7,7 @@ import App from '@/App'
 import '@/i18n'
 import { bootstrapAuth } from '@/api/http'
 import { useAuthStore } from '@/stores/auth.store'
+import { initThemeOnClient } from '@/stores/theme.store'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ export default function ClientApp() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    initThemeOnClient()
     let cancelled = false
     bootstrapAuth().then((newToken) => {
       if (cancelled) return

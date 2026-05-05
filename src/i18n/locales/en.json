@@ -13,7 +13,10 @@
     "signUp": "Sign up",
     "startFreeTrial": "Start free trial",
     "startFree": "Start free",
-    "toggleMenu": "Toggle menu"
+    "toggleMenu": "Toggle menu",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode",
+    "theme": "Theme"
   },
   "marketingNav": {
     "links": {
@@ -55,12 +58,49 @@
     }
   },
   "appNav": {
-    "dashboard": "Dashboard",
-    "activity": "Activity",
-    "screenshots": "Screenshots",
+    "tracking": "Tracking",
+    "board": "Board",
     "team": "Team",
     "settings": "Settings",
     "download": "Download"
+  },
+  "tracking": {
+    "kicker": "Workspace",
+    "title": "Tracking hub",
+    "subtitle": "An at-a-glance view of your team — overview stats, raw activity logs, and screenshots, all in one place.",
+    "tabs": {
+      "overview": "Overview",
+      "activity": "Activity logs",
+      "screenshots": "Screenshots"
+    }
+  },
+  "board": {
+    "kicker": "Workspace",
+    "title": "Board",
+    "subtitle": "A simple kanban for planning, prioritizing, and tracking work alongside your team's activity.",
+    "summary": "{{columns}} columns · {{cards}} cards",
+    "addColumn": "Add column",
+    "addCard": "Add card",
+    "add": "Add",
+    "columnNamePlaceholder": "Column name…",
+    "cardPlaceholder": "Card title…",
+    "columnMenu": "Column actions",
+    "rename": "Rename",
+    "deleteColumn": "Delete column",
+    "deleteCard": "Delete card",
+    "emptyColumn": "Drop cards here",
+    "description": "Description",
+    "descriptionPlaceholder": "Add more detail, links, or notes…",
+    "color": "Color",
+    "colorNone": "No color",
+    "createdAt": "Created {{date}}",
+    "reset": "Reset board",
+    "confirmResetTitle": "Reset the board?",
+    "confirmResetMessage": "This will replace your columns and cards with the default starter board.",
+    "confirmDeleteColumnTitle": "Delete column?",
+    "confirmDeleteColumnMessage": "“{{title}}” and its {{count}} card(s) will be permanently removed.",
+    "confirmDeleteCardTitle": "Delete card?",
+    "confirmDeleteCardMessage": "“{{title}}” will be permanently removed."
   },
   "auth": {
     "signIn": {

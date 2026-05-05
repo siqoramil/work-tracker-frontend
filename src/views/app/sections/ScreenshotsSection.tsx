@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
@@ -35,7 +37,7 @@ type Filters = {
   dateTo: string
 }
 
-export default function ScreenshotsPage() {
+export default function ScreenshotsSection() {
   const { t } = useTranslation()
   const defaults = useMemo(() => computeDefaultRange(), [])
 
@@ -61,20 +63,8 @@ export default function ScreenshotsPage() {
 
   return (
     <div>
-      <div className="mb-6">
-        <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">
-          {t('screenshots.kicker')}
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-          {t('screenshots.title')}
-        </h1>
-        <p className="mt-2 text-sm text-slate-600">
-          {t('screenshots.subtitle')}
-        </p>
-      </div>
-
       <form
-        className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-end"
+        className="mb-6 grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto] lg:items-end"
         onSubmit={(e) => {
           e.preventDefault()
           setApplied(draft)
@@ -112,18 +102,18 @@ export default function ScreenshotsPage() {
       {error && (
         <div
           role="alert"
-          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
         >
           {extractApiError(error, t('screenshots.errorFallback'))}
         </div>
       )}
 
       {isLoading ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
           {t('screenshots.loading')}
         </div>
       ) : rows.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
+        <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
           {t('screenshots.empty')}
         </div>
       ) : (
@@ -133,9 +123,9 @@ export default function ScreenshotsPage() {
               type="button"
               key={s.id}
               onClick={() => setLightbox(s)}
-              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white text-left transition hover:border-brand-200 hover:shadow-md"
+              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white text-left transition hover:border-brand-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-brand-500/40 dark:hover:shadow-black/40"
             >
-              <div className="aspect-video bg-slate-100">
+              <div className="aspect-video bg-slate-100 dark:bg-slate-800">
                 <img
                   src={s.file_path}
                   alt={`Screenshot ${s.id}`}
@@ -148,10 +138,10 @@ export default function ScreenshotsPage() {
                 />
               </div>
               <div className="p-3">
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {formatDate(s.captured_at)}
                 </p>
-                <code className="mt-1 block truncate text-[11px] text-slate-400">
+                <code className="mt-1 block truncate text-[11px] text-slate-400 dark:text-slate-500">
                   {s.user_id}
                 </code>
               </div>
@@ -168,22 +158,22 @@ export default function ScreenshotsPage() {
           onClick={() => setLightbox(null)}
         >
           <div
-            className="max-h-full max-w-5xl overflow-hidden rounded-2xl bg-white"
+            className="max-h-full max-w-5xl overflow-hidden rounded-2xl bg-white dark:bg-slate-900"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3 dark:border-slate-800">
               <div>
-                <p className="text-sm font-semibold text-slate-900">
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                   {formatDate(lightbox.captured_at)}
                 </p>
-                <code className="text-xs text-slate-500">
+                <code className="text-xs text-slate-500 dark:text-slate-400">
                   {lightbox.user_id}
                 </code>
               </div>
               <button
                 type="button"
                 onClick={() => setLightbox(null)}
-                className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100"
+                className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
                 aria-label={t('screenshots.close')}
               >
                 <svg

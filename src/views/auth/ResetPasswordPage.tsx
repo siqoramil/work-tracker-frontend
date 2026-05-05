@@ -76,7 +76,7 @@ export default function ResetPasswordPage() {
     <div>
       <Link
         to="/auth/signin"
-        className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-brand-700"
+        className="mb-8 inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300"
       >
         <svg
           viewBox="0 0 24 24"
@@ -96,20 +96,20 @@ export default function ResetPasswordPage() {
       <StepIndicator step={step} />
 
       <div className="mb-8">
-        <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
+        <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100 dark:bg-brand-500/15 dark:text-brand-200 dark:ring-brand-500/30">
           {t('auth.resetPassword.badge')}
         </span>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900">
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           {step === 'request' && t('auth.resetPassword.request.title')}
           {step === 'confirm' && t('auth.resetPassword.confirm.title')}
           {step === 'done' && t('auth.resetPassword.done.title')}
         </h2>
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           {step === 'request' && t('auth.resetPassword.request.subtitle')}
           {step === 'confirm' && (
             <>
               {t('auth.resetPassword.confirm.subtitlePrefix')}{' '}
-              <span className="font-medium text-slate-900">
+              <span className="font-medium text-slate-900 dark:text-slate-100">
                 {email || t('auth.resetPassword.confirm.yourEmail')}
               </span>
               {t('auth.resetPassword.confirm.subtitleSuffix')}
@@ -122,7 +122,7 @@ export default function ResetPasswordPage() {
       {error && (
         <div
           role="alert"
-          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+          className="mb-5 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
         >
           {error}
         </div>
@@ -155,12 +155,12 @@ export default function ResetPasswordPage() {
           <Button type="submit" fullWidth loading={loading}>
             {t('auth.resetPassword.request.submit')}
           </Button>
-          <p className="text-center text-xs text-slate-500">
+          <p className="text-center text-xs text-slate-500 dark:text-slate-400">
             {t('auth.resetPassword.request.haveCode')}{' '}
             <button
               type="button"
               onClick={() => setStep('confirm')}
-              className="font-semibold text-brand-700 hover:text-brand-800"
+              className="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200"
             >
               {t('auth.resetPassword.request.enterHere')}
             </button>
@@ -236,7 +236,7 @@ export default function ResetPasswordPage() {
           <Button type="submit" fullWidth loading={loading}>
             {t('auth.resetPassword.confirm.submit')}
           </Button>
-          <p className="text-center text-xs text-slate-500">
+          <p className="text-center text-xs text-slate-500 dark:text-slate-400">
             {t('auth.resetPassword.confirm.noCode')}{' '}
             <button
               type="button"
@@ -244,7 +244,7 @@ export default function ResetPasswordPage() {
                 setStep('request')
                 setError(null)
               }}
-              className="font-semibold text-brand-700 hover:text-brand-800"
+              className="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200"
             >
               {t('auth.resetPassword.confirm.sendNew')}
             </button>
@@ -254,9 +254,9 @@ export default function ResetPasswordPage() {
 
       {step === 'done' && (
         <div className="space-y-5">
-          <div className="rounded-2xl border border-brand-100 bg-brand-50/60 p-5">
+          <div className="rounded-2xl border border-brand-100 bg-brand-50/60 p-5 dark:border-brand-500/30 dark:bg-brand-500/10">
             <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-brand-600 text-white">
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-brand-600 text-white dark:bg-brand-500">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -271,10 +271,10 @@ export default function ResetPasswordPage() {
                 </svg>
               </span>
               <div>
-                <p className="text-sm font-semibold text-slate-900">
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                   {t('auth.resetPassword.done.panelTitle')}
                 </p>
-                <p className="mt-1 text-sm text-slate-600">
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                   {t('auth.resetPassword.done.panelMessage')}
                 </p>
               </div>
@@ -289,11 +289,11 @@ export default function ResetPasswordPage() {
       )}
 
       {step !== 'done' && (
-        <p className="mt-8 text-center text-sm text-slate-500">
+        <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
           {t('auth.resetPassword.remembered')}{' '}
           <Link
             to="/auth/signin"
-            className="font-semibold text-brand-700 hover:text-brand-800"
+            className="font-semibold text-brand-700 hover:text-brand-800 dark:text-brand-300 dark:hover:text-brand-200"
           >
             {t('auth.resetPassword.signInInstead')}
           </Link>
@@ -313,7 +313,7 @@ function StepIndicator({ step }: { step: Step }) {
   const activeIndex = items.findIndex((i) => i.key === step)
 
   return (
-    <ol className="mb-6 flex items-center gap-2 text-xs font-medium text-slate-500">
+    <ol className="mb-6 flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
       {items.map((item, idx) => {
         const isActive = idx === activeIndex
         const isComplete = idx < activeIndex
@@ -322,24 +322,26 @@ function StepIndicator({ step }: { step: Step }) {
             <span
               className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] ${
                 isComplete
-                  ? 'bg-brand-600 text-white'
+                  ? 'bg-brand-600 text-white dark:bg-brand-500'
                   : isActive
-                    ? 'bg-brand-100 text-brand-800 ring-2 ring-brand-200'
-                    : 'bg-slate-100 text-slate-500'
+                    ? 'bg-brand-100 text-brand-800 ring-2 ring-brand-200 dark:bg-brand-500/20 dark:text-brand-200 dark:ring-brand-500/40'
+                    : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
               }`}
             >
               {isComplete ? '✓' : idx + 1}
             </span>
             <span
               className={
-                isActive || isComplete ? 'text-slate-800' : 'text-slate-400'
+                isActive || isComplete
+                  ? 'text-slate-800 dark:text-slate-100'
+                  : 'text-slate-400 dark:text-slate-500'
               }
             >
               {item.label}
             </span>
             {idx < items.length - 1 && (
               <span
-                className={`h-px w-6 ${isComplete ? 'bg-brand-400' : 'bg-slate-200'}`}
+                className={`h-px w-6 ${isComplete ? 'bg-brand-400' : 'bg-slate-200 dark:bg-slate-700'}`}
               />
             )}
           </li>

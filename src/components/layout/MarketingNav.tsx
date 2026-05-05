@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Logo from '@/components/ui/Logo'
 import Button from '@/components/ui/Button'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 
 export default function MarketingNav() {
   const { t } = useTranslation()
@@ -28,7 +29,7 @@ export default function MarketingNav() {
     <header
       className={`sticky top-0 z-40 w-full transition ${
         scrolled
-          ? 'border-b border-slate-200 bg-white/80 backdrop-blur'
+          ? 'border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/70'
           : 'bg-transparent'
       }`}
     >
@@ -42,7 +43,7 @@ export default function MarketingNav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
+              className="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             >
               {l.label}
             </a>
@@ -50,10 +51,11 @@ export default function MarketingNav() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <ThemeToggle />
           <LanguageSwitcher />
           <Link
             to="/auth/signin"
-            className="rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-700 hover:text-brand-700"
+            className="rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-700 hover:text-brand-700 dark:text-slate-200 dark:hover:text-brand-300"
           >
             {t('common.signIn')}
           </Link>
@@ -66,7 +68,7 @@ export default function MarketingNav() {
           type="button"
           aria-label={t('common.toggleMenu')}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 lg:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 dark:border-slate-700 dark:text-slate-200 lg:hidden"
         >
           <svg
             viewBox="0 0 24 24"
@@ -86,19 +88,20 @@ export default function MarketingNav() {
       </div>
 
       {open && (
-        <div className="border-t border-slate-200 bg-white lg:hidden">
+        <div className="border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800"
               >
                 {l.label}
               </a>
             ))}
-            <div className="mt-2 flex">
+            <div className="mt-2 flex items-center gap-2">
+              <ThemeToggle />
               <LanguageSwitcher />
             </div>
             <div className="mt-2 flex gap-2">
