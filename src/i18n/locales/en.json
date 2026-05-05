@@ -296,7 +296,13 @@
     "loading": "Loading…",
     "empty": "No screenshots found for the selected filters.",
     "errorFallback": "Unable to load screenshots",
-    "close": "Close"
+    "close": "Close",
+    "noActivity": "No tracker data for this interval",
+    "tracker": {
+      "keyboard": "Keyboard events in this interval",
+      "mouse": "Mouse events in this interval",
+      "activity": "Activity percent in this interval"
+    }
   },
   "team": {
     "kicker": "Team",

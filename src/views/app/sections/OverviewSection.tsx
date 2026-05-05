@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import Button from '@/components/ui/Button'
+import ImageWithSkeleton from '@/components/ui/ImageWithSkeleton'
 import { trackingApi, type ScreenshotResponse } from '@/services/tracking'
 import { extractApiError } from '@/services/auth'
 import { useAuthStore } from '@/stores/auth.store'
@@ -270,17 +271,12 @@ export default function OverviewSection() {
                       onClick={() => setLightbox(s)}
                       className="group overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left transition hover:border-brand-200 dark:border-slate-800 dark:bg-slate-800 dark:hover:border-brand-500/40"
                     >
-                      <div className="aspect-video">
-                        <img
+                      <div className="relative aspect-video">
+                        <ImageWithSkeleton
                           src={s.file_path}
                           alt={`Screenshot ${s.id}`}
                           loading="lazy"
                           className="h-full w-full object-cover transition group-hover:scale-[1.02]"
-                          onError={(e) => {
-                            ;(
-                              e.currentTarget as HTMLImageElement
-                            ).style.display = 'none'
-                          }}
                         />
                       </div>
                       <p className="px-2 py-1.5 text-[11px] text-slate-500 dark:text-slate-400">
@@ -345,11 +341,13 @@ export default function OverviewSection() {
                 </svg>
               </button>
             </div>
-            <img
-              src={lightbox.file_path}
-              alt={`Screenshot ${lightbox.id}`}
-              className="max-h-[75vh] w-auto max-w-full"
-            />
+            <div className="relative flex min-h-[300px] items-center justify-center bg-slate-50 dark:bg-slate-950">
+              <ImageWithSkeleton
+                src={lightbox.file_path}
+                alt={`Screenshot ${lightbox.id}`}
+                className="max-h-[75vh] w-auto max-w-full"
+              />
+            </div>
           </div>
         </div>
       )}
