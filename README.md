@@ -1,75 +1,122 @@
-# React + TypeScript + Vite
+# Work Tracker — Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The web client for **Work Tracker**, a time tracking, project management, and team productivity platform. This is a static-exported **Next.js 15** shell that hosts a **React Router** SPA, sharing UI/state patterns with the [desktop app](../work-tracker-desktop).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Landing Page** — Marketing entry point with download links to the desktop app
+- **Authentication** — Sign in, sign up, email verification, password reset
+- **Time Tracking** — Web-based tracker UI (activity, screenshots tabs)
+- **Board** — Project/task board view
+- **Team** — Team member overview (admin & manager only)
+- **Settings** — User preferences, theme, language
+- **Download** — Desktop client download page
+- **Internationalization** — English / Russian via `i18next`
+- **Theme** — Light / dark mode with persistence
+- **Protected Routes** — Role-aware route guards (`ProtectedRoute`, `PublicOnlyRoute`)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Layer        | Technology                              |
+| ------------ | --------------------------------------- |
+| Framework    | Next.js 15 (App Router, static export)  |
+| UI           | React 19, TypeScript                    |
+| Routing      | React Router DOM 7 (inside Next catch-all `[[...slug]]`) |
+| Server state | TanStack React Query 5                  |
+| Client state | Zustand                                 |
+| HTTP         | Axios                                   |
+| Styling      | Tailwind CSS 4                          |
+| i18n         | i18next + react-i18next                 |
+| Linting      | ESLint (`eslint-config-next`) + Prettier |
 
-Note: This will impact Vite dev & build performances.
+> The Next.js `app/` directory contains a single catch-all route (`[[...slug]]`) that mounts the React Router SPA from `src/`. This lets the project ship as a fully static export while keeping client-side routing logic shared with the desktop app.
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Node.js](https://nodejs.org/) (v18+)
+- Yarn package manager
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Install dependencies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run in development mode
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn dev
 ```
+
+The dev server runs on [http://localhost:8080](http://localhost:8080).
+
+### Build for production (static export)
+
+```bash
+yarn build
+```
+
+The static site is emitted to `out/`.
+
+### Serve the production build
+
+```bash
+yarn start
+```
+
+### Lint and format
+
+```bash
+yarn lint
+yarn format        # write changes
+yarn format:check  # check only
+```
+
+## Project Structure
+
+```
+app/
+├── layout.tsx              # Next.js root layout
+└── [[...slug]]/            # Catch-all route hosting the React Router SPA
+
+src/
+├── api/                    # Axios instance, auth bootstrap
+├── components/
+│   ├── layout/             # AppTopbar, MarketingNav, MarketingFooter
+│   └── ui/                 # Button, Input, DateField, Logo, ThemeToggle, etc.
+├── config/                 # App config
+├── i18n/                   # i18next setup and translations
+├── routes/                 # ProtectedRoute, PublicOnlyRoute
+├── services/               # auth/, tracking/ — API service modules
+├── stores/                 # auth.store, board.store, theme.store (Zustand)
+├── views/
+│   ├── LandingPage.tsx
+│   ├── auth/               # SignIn, SignUp, ResetPassword, VerifyEmail
+│   └── app/                # Tracking, Board, Team, Settings, Download
+├── App.tsx                 # React Router route tree
+├── ClientApp.tsx           # Client-only providers (QueryClient, BrowserRouter, theme/auth bootstrap)
+└── index.css
+```
+
+## Routes
+
+| Path                       | Description                              |
+| -------------------------- | ---------------------------------------- |
+| `/`                        | Landing page                             |
+| `/auth/signin`             | Sign in (public-only)                    |
+| `/auth/signup`             | Sign up (public-only)                    |
+| `/auth/verify-email`       | Email verification                       |
+| `/auth/reset-password`     | Password reset                           |
+| `/app/tracking`            | Time tracking (default app route)        |
+| `/app/board`               | Project / task board                     |
+| `/app/team`                | Team overview                            |
+| `/app/settings`            | User settings                            |
+| `/app/download`            | Desktop app download                     |
+
+Legacy paths (`/app/dashboard`, `/app/activity`, `/app/screenshots`) redirect to `/app/tracking`.
+
+## License
+
+This project is proprietary and confidential.
