@@ -2,7 +2,9 @@
 
 import dynamic from 'next/dynamic'
 
-const ClientApp = dynamic(() => import('@/ClientApp'), { ssr: false })
+const ClientApp = dynamic(() => import('@/init/providers/ClientApp'), {
+  ssr: false,
+})
 
 export default function ClientShell() {
   return <ClientApp />

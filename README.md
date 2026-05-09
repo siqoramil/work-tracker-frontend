@@ -17,17 +17,17 @@ The web client for **Work Tracker**, a time tracking, project management, and te
 
 ## Tech Stack
 
-| Layer        | Technology                              |
-| ------------ | --------------------------------------- |
-| Framework    | Next.js 15 (App Router, static export)  |
-| UI           | React 19, TypeScript                    |
+| Layer        | Technology                                               |
+| ------------ | -------------------------------------------------------- |
+| Framework    | Next.js 15 (App Router, static export)                   |
+| UI           | React 19, TypeScript                                     |
 | Routing      | React Router DOM 7 (inside Next catch-all `[[...slug]]`) |
-| Server state | TanStack React Query 5                  |
-| Client state | Zustand                                 |
-| HTTP         | Axios                                   |
-| Styling      | Tailwind CSS 4                          |
-| i18n         | i18next + react-i18next                 |
-| Linting      | ESLint (`eslint-config-next`) + Prettier |
+| Server state | TanStack React Query 5                                   |
+| Client state | Zustand                                                  |
+| HTTP         | Axios                                                    |
+| Styling      | Tailwind CSS 4                                           |
+| i18n         | i18next + react-i18next                                  |
+| Linting      | ESLint (`eslint-config-next`) + Prettier                 |
 
 > The Next.js `app/` directory contains a single catch-all route (`[[...slug]]`) that mounts the React Router SPA from `src/`. This lets the project ship as a fully static export while keeping client-side routing logic shared with the desktop app.
 
@@ -102,18 +102,18 @@ src/
 
 ## Routes
 
-| Path                       | Description                              |
-| -------------------------- | ---------------------------------------- |
-| `/`                        | Landing page                             |
-| `/auth/signin`             | Sign in (public-only)                    |
-| `/auth/signup`             | Sign up (public-only)                    |
-| `/auth/verify-email`       | Email verification                       |
-| `/auth/reset-password`     | Password reset                           |
-| `/app/tracking`            | Time tracking (default app route)        |
-| `/app/board`               | Project / task board                     |
-| `/app/team`                | Team overview                            |
-| `/app/settings`            | User settings                            |
-| `/app/download`            | Desktop app download                     |
+| Path                   | Description                       |
+| ---------------------- | --------------------------------- |
+| `/`                    | Landing page                      |
+| `/auth/signin`         | Sign in (public-only)             |
+| `/auth/signup`         | Sign up (public-only)             |
+| `/auth/verify-email`   | Email verification                |
+| `/auth/reset-password` | Password reset                    |
+| `/app/tracking`        | Time tracking (default app route) |
+| `/app/board`           | Project / task board              |
+| `/app/team`            | Team overview                     |
+| `/app/settings`        | User settings                     |
+| `/app/download`        | Desktop app download              |
 
 Legacy paths (`/app/dashboard`, `/app/activity`, `/app/screenshots`) redirect to `/app/tracking`.
 

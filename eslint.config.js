@@ -15,11 +15,7 @@ export default defineConfig([
   ]),
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      prettier,
-    ],
+    extends: [js.configs.recommended, tseslint.configs.recommended, prettier],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
