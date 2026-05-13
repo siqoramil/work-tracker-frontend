@@ -4,7 +4,8 @@ import '@/init/styles/index.css'
 export const metadata: Metadata = {
   title: 'Work Tracker',
   icons: {
-    icon: { url: '/favicon.svg', type: 'image/svg+xml' },
+    icon: { url: '/favicon.ico', type: 'image/x-icon' },
+    apple: { url: '/app-icon.png', type: 'image/png' },
   },
 }
 
