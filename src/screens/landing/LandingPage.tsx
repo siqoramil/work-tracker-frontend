@@ -78,17 +78,13 @@ export default function LandingPage() {
             <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
             {t('landing.hero.badge')}
           </span>
-          <h1 className="mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-balance text-[28px] font-semibold leading-[1.2] tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl sm:leading-tight lg:text-6xl">
             {t('landing.hero.titleStart')}{' '}
-            <span className="relative inline-block">
-              <span className="relative z-10 text-brand-700 dark:text-brand-300">
-                {t('landing.hero.titleHighlight')}
-              </span>
-              <span className="absolute inset-x-0 bottom-1 -z-0 h-3 bg-brand-200/70 dark:bg-brand-500/30" />
+            <span className="bg-[linear-gradient(transparent_55%,rgba(167,243,208,0.7)_55%)] px-1 text-brand-700 [-webkit-box-decoration-break:clone] [box-decoration-break:clone] dark:bg-[linear-gradient(transparent_55%,rgba(16,185,129,0.3)_55%)] dark:text-brand-300">
+              {t('landing.hero.titleHighlight')}.
             </span>
-            .
           </h1>
-          <p className="mt-6 max-w-2xl text-base text-slate-600 dark:text-slate-300 sm:text-lg">
+          <p className="mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg">
             {t('landing.hero.subtitle')}
           </p>
           <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:max-w-none sm:w-auto sm:flex-row sm:items-center">
