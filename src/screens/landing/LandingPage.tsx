@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import MarketingNav from '@/widgets/marketing-nav/MarketingNav'
 import MarketingFooter from '@/widgets/marketing-footer/MarketingFooter'
+import { AnimatedDashboardPreview } from '@/widgets/landing-dashboard-preview'
 import Button from '@/shared/ui/Button'
 
 const features = [
@@ -155,77 +156,7 @@ export default function LandingPage() {
         </div>
 
         <div className="relative mx-auto mt-16 max-w-5xl">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-900/10 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/40">
-            <div className="flex items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-4 py-2.5 dark:border-slate-800 dark:bg-slate-900/60">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-brand-400" />
-              <span className="ml-3 text-xs text-slate-500 dark:text-slate-400">
-                app.worktracker.io / dashboard
-              </span>
-            </div>
-            <div className="grid grid-cols-12 gap-3 p-3 sm:gap-4 sm:p-5">
-              <aside className="col-span-3 hidden flex-col gap-1 md:flex">
-                {[
-                  'Dashboard',
-                  'Team',
-                  'Projects',
-                  'Timesheets',
-                  'Invoices',
-                  'Reports',
-                  'Settings',
-                ].map((item, i) => (
-                  <div
-                    key={item}
-                    className={`rounded-lg px-3 py-2 text-xs font-medium ${
-                      i === 0
-                        ? 'bg-brand-50 text-brand-800 dark:bg-brand-500/15 dark:text-brand-200'
-                        : 'text-slate-500 dark:text-slate-400'
-                    }`}
-                  >
-                    {item}
-                  </div>
-                ))}
-              </aside>
-              <main className="col-span-12 md:col-span-9">
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  {[
-                    { label: 'Hours this week', value: '412h', delta: '+8%' },
-                    { label: 'Active projects', value: '23', delta: '+2' },
-                    { label: 'Pending approvals', value: '7', delta: '−3' },
-                  ].map((c) => (
-                    <div
-                      key={c.label}
-                      className="rounded-xl border border-slate-200 bg-white p-2.5 dark:border-slate-800 dark:bg-slate-900/60 sm:p-3"
-                    >
-                      <p className="text-[9px] uppercase tracking-wide text-slate-400 dark:text-slate-500 sm:text-[10px]">
-                        {c.label}
-                      </p>
-                      <p className="mt-1 text-base font-semibold text-slate-900 dark:text-slate-100 sm:text-xl">
-                        {c.value}
-                      </p>
-                      <p className="text-[10px] text-brand-600 dark:text-brand-400">
-                        {c.delta}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-3 h-40 rounded-xl border border-slate-200 bg-gradient-to-b from-brand-50 to-white p-3 dark:border-slate-800 dark:from-brand-900/30 dark:to-slate-900">
-                  <div className="flex items-end gap-1.5">
-                    {[45, 72, 58, 90, 65, 110, 82, 95, 70, 120, 88, 105].map(
-                      (h, i) => (
-                        <div
-                          key={i}
-                          className="flex-1 rounded-t bg-brand-500/80"
-                          style={{ height: `${h}px` }}
-                        />
-                      ),
-                    )}
-                  </div>
-                </div>
-              </main>
-            </div>
-          </div>
+          <AnimatedDashboardPreview />
           <div className="pointer-events-none absolute -bottom-10 left-1/2 -z-10 h-40 w-3/4 -translate-x-1/2 rounded-full bg-brand-400/20 blur-3xl" />
         </div>
       </section>
