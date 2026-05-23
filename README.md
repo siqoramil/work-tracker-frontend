@@ -14,6 +14,7 @@ The web client for **Work Tracker**, a time tracking, project management, and te
 - **Internationalization** — English / Russian via `i18next`
 - **Theme** — Light / dark mode with persistence
 - **Protected Routes** — Role-aware route guards (`ProtectedRoute`, `PublicOnlyRoute`)
+- **Water Ripple** — Custom MUI-style ripple effect installed globally on every `<button>` / `[role="button"]` via `src/shared/lib/water-ripple.ts`. Opt out with `data-no-ripple`.
 
 ## Tech Stack
 

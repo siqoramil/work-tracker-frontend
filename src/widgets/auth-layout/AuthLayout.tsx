@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Logo from '@/shared/ui/Logo'
 import ThemeToggle from '@/features/theme/ui/ThemeToggle'
 
@@ -18,6 +19,7 @@ const highlights = [
 ]
 
 export default function AuthLayout() {
+  const { t } = useTranslation()
   return (
     <div className="flex min-h-screen w-full bg-white dark:bg-slate-950">
       <aside className="relative hidden w-1/2 overflow-hidden bg-brand-700 text-white lg:flex lg:flex-col">
@@ -102,6 +104,25 @@ export default function AuthLayout() {
       </aside>
 
       <main className="relative flex flex-1 items-center justify-center px-5 py-10 sm:px-10">
+        <Link
+          to="/"
+          aria-label={t('common.backToHome')}
+          className="group absolute left-5 top-5 inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm backdrop-blur transition hover:border-brand-300 hover:bg-white hover:text-brand-700 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-brand-500/60 dark:hover:bg-slate-900 dark:hover:text-brand-200 sm:left-10 sm:top-8 sm:gap-2 sm:px-3.5 sm:py-2 sm:text-sm"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+            aria-hidden="true"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span>{t('common.backToHome')}</span>
+        </Link>
         <div className="absolute right-5 top-5 sm:right-10 sm:top-8">
           <ThemeToggle />
         </div>

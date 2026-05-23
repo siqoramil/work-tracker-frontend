@@ -36,7 +36,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     <button
       ref={ref}
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-60 ${variantClasses[variant]} ${widthClass} ${className}`}
+      className={`relative isolate overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-60 ${variantClasses[variant]} ${widthClass} ${className}`}
       {...rest}
     >
       {loading ? (

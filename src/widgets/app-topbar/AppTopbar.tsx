@@ -33,7 +33,7 @@ export default function AppTopbar() {
 
   const onSignOut = () => {
     signOut()
-    navigate('/auth/signin', { replace: true })
+    navigate('/', { replace: true })
   }
 
   return (

@@ -8,6 +8,7 @@ import '@/shared/i18n'
 import { bindAuthAccessor, bootstrapAuth } from '@/shared/api/http'
 import { useAuthStore } from '@/features/auth'
 import { initThemeOnClient } from '@/features/theme'
+import { installWaterRipple } from '@/shared/lib/water-ripple'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ export default function ClientApp() {
 
   useEffect(() => {
     initThemeOnClient()
+    installWaterRipple()
     let cancelled = false
     bootstrapAuth().then((newToken) => {
       if (cancelled) return
